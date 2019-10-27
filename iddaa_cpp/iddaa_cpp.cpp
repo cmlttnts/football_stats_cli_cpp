@@ -3,9 +3,13 @@
 
 #include <iostream>
 #include "Team.h"
-int main()
-{
-	Team new_team{"Galatasaray"};
-    std::cout << new_team.getName();
+#include "Match.h"
+#include "ParseText.h"
+#include "Files.h"
+
+int main(){
+	std::vector<std::filesystem::path> file_names = getFileNames("./weeks");
+	for (const auto& name : file_names)
+		simpleParse(name);
 }
 
