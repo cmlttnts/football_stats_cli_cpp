@@ -1,0 +1,3 @@
+tarih başlangıç bitiş
+lig ismi
+ev_sahibi deplasman ilk_yarı maç_sonucu
