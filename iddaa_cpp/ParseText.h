@@ -3,8 +3,7 @@
 #include <fstream>
 #include <string>
 #include "Files.h"
-void simpleParse(std::filesystem::path);
-
-void parseForTeam();
-
-void parseForLeague();
+#include "Team.h"
+int simpleParse(const std::filesystem::path&, Team&);
+void evaluateFirstHalf(Team&, Match&, unsigned int, unsigned int, bool);
+void evaluateSecondHalf(Team&, Match&, unsigned int, unsigned int, bool);

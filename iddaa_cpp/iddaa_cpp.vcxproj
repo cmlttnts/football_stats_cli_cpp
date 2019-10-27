@@ -156,12 +156,14 @@
     <ClCompile Include="iddaa_cpp.cpp" />
     <ClCompile Include="Match.cpp" />
     <ClCompile Include="ParseText.cpp" />
+    <ClCompile Include="Presentation.cpp" />
     <ClCompile Include="Team.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Files.h" />
     <ClInclude Include="Match.h" />
     <ClInclude Include="ParseText.h" />
+    <ClInclude Include="Presentation.h" />
     <ClInclude Include="Team.h" />
   </ItemGroup>
   <ItemGroup>

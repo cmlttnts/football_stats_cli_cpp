@@ -8,10 +8,12 @@ AWAY_WIN = 2
 
 class Match {
 private:
-	std::string full_str;
+public:
+	std::string pretty_str;
 	std::string home_name;
 	std::string away_name;
 	std::string comment;
+	std::string date;
 	unsigned int home_first_half_goals;
 	unsigned int home_second_half_goals;
 	unsigned int home_total_goals;
@@ -21,7 +23,7 @@ private:
 	MatchResult first_half_result;
 	MatchResult second_half_result;
 	MatchResult final_result;
-public:
 	Match();
-	Match(std::string);
+	void prettyPresent();
 };
+

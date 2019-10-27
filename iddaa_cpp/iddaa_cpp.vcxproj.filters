@@ -30,6 +30,9 @@
     <ClCompile Include="Files.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Presentation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Team.h">
@@ -42,6 +45,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Files.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Presentation.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
