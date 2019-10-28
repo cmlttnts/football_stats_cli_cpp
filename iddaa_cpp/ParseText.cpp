@@ -174,7 +174,7 @@ void evaluateSecondHalf(Team& team, Match& match,
 	team.num_of_matches++;
 	// to find second half goals, remove first half from total score
 	unsigned int home_sh_goals = home_total_score - match.home_first_half_goals;
-	unsigned int away_sh_goals = away_total_score - match.away_second_half_goals;
+	unsigned int away_sh_goals = away_total_score - match.away_first_half_goals;
 
 	//MODIFY MATCH INFO
 	match.home_second_half_goals = home_sh_goals;
