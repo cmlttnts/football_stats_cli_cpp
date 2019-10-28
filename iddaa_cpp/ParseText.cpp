@@ -18,72 +18,68 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 	string eng_str = "eng";
 	string ger_str = "ger";
 	bool match_found = false;
-
+	Match a_match;
 	if (file.is_open()) {
 		//lines are read line by line
 		int next_line = 2;
 		bool first_line = true;
 		bool parse_finished = false;
 		bool team_home = true;
-		Match a_match;
 		bool jump_line = false;
-		while ( getline(file, line) && !parse_finished) {
+		while (getline(file, line) && !parse_finished){
 			istringstream stream(line);
 			// divide line by empty spaces
-			jump_line = false;
-			while (getline(stream, buffer, ' ') && !jump_line) {
+			while (getline(stream, buffer, ' ')){
+				if (match_found && next_line > 1) {
+					parse_finished = true;
+					break;
+				}
 				//first line always dates
-				if (first_line) {
+				else if (first_line) {
 					getline(stream, buffer);
 					a_match.date = buffer;
-					jump_line = true;
 					first_line = false;
+					break;
 				}
 				//if it starts with "." it is comment
-				else if (!buffer.compare(comment_str)) {
-					if (match_found && next_line == 1) {
+				else if (next_line == 1 && !buffer.compare(comment_str)){
 					getline(stream, buffer);
 					a_match.comment = buffer;
-					team.matches.push_back(a_match);
 					parse_finished = true;
-					}
 				}
 				//LEAGUES
-				else if (!buffer.compare(tr_str)) {
+				else if (!buffer.compare(tr_str)){
 					//TODO: league statistics maybe lates, just jump over leauge name lines
-					jump_line = true;
+					break;
 				}
-				else if (!buffer.compare(eng_str)) {
+				else if (!buffer.compare(eng_str)){
 					//TODO: league statistics maybe lates, just jump over leauge name lines
-					jump_line = true;
+					break;
 				}
-				else if (!buffer.compare(ita_str)) {
+				else if (!buffer.compare(ita_str)){
 					//TODO: league statistics maybe lates, just jump over leauge name lines
-					jump_line = true;
+					break;
 				}
-				else if (!buffer.compare(sp_str)) {
+				else if (!buffer.compare(sp_str)){
 					//TODO: league statistics maybe lates, just jump over leauge name lines
-					jump_line = true;
+					break;
 				}
-				else if (!buffer.compare(ger_str)) {
+				else if (!buffer.compare(ger_str)){
 					//TODO: league statistics maybe lates, just jump over leauge name lines
-					jump_line = true;
+					break;
 				}
 				// Actual match info
-				else {
-					if (match_found)
-						break;
-					//first name if not input team
-					if (buffer.compare(team.name)) {
+				else{
+					//first word if not input team
+					if (buffer.compare(team.name)){
 						//get second name
-						a_match.home_name = buffer;
-						
+						std::string temp = buffer;
 						getline(stream, buffer, ' ');
-						if (buffer.compare(team.name)) {
-							jump_line = true;
+						if (buffer.compare(team.name)){
 							break;
 						}
 						else {
+							a_match.home_name = temp;
 							a_match.away_name = buffer;
 							team_home = false;
 							match_found = true;
@@ -118,9 +114,7 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 				
 				}
 			}
-			if (next_line == 1 && !parse_finished) {
-				team.matches.push_back(a_match);
-			}
+			//increment line count, if match found it resets 0 to check for comment if exists
 			next_line++;
 		}
 		file.close();
@@ -129,6 +123,8 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 		cout << "File did not open!\n";
 		return 1;
 	}
+	if (match_found)
+		team.matches.push_back(a_match);
 	return !match_found;
 }
 void evaluateFirstHalf(Team& team, Match& match,
