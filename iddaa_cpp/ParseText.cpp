@@ -17,12 +17,13 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 	string ita_str = "ita";
 	string eng_str = "eng";
 	string ger_str = "ger";
+	bool match_found = false;
 
 	if (file.is_open()) {
 		//lines are read line by line
+		int next_line = 2;
 		bool first_line = true;
 		unsigned int word_no = 1;
-		bool match_found = false;
 		bool parse_finished = false;
 		bool team_home = true;
 		Match a_match;
@@ -41,7 +42,7 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 				}
 				//if it starts with "." it is comment
 				else if (!buffer.compare(comment_str)) {
-					if (match_found) {
+					if (match_found && next_line == 1) {
 					getline(stream, buffer);
 					a_match.comment = buffer;
 					team.matches.push_back(a_match);
@@ -98,16 +99,29 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 					}
 					std::string s1;
 					std::string s2;
+					//get first half result
 					getline(stream, s1, ' ');
 					getline(stream, s2, ' ');
 					evaluateFirstHalf(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
+					//get match result
 					getline(stream, s1, ' ');
 					getline(stream, s2, ' ');
 					evaluateSecondHalf(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
-
+					//get corner values
+					getline(stream, s1, ' ');
+					getline(stream, s2, ' ');
+					processFirstHalfCorners(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
+					getline(stream, s1, ' ');
+					getline(stream, s2, ' ');
+					processSecondHalfCorners(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
+					next_line = 0;
 				
 				}
 			}
+			if (next_line == 1 && !parse_finished) {
+				team.matches.push_back(a_match);
+			}
+			next_line++;
 		}
 		file.close();
 	}
@@ -115,7 +129,7 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 		cout << "File did not open!\n";
 		return 1;
 	}
-	return 0;
+	return !match_found;
 }
 void evaluateFirstHalf(Team& team, Match& match,
 	unsigned int home_fh_score,
@@ -207,7 +221,7 @@ void evaluateSecondHalf(Team& team, Match& match,
 			team.num_of_wins++;
 		}
 		else if (away_total_score > home_total_score)
-			team.num_of_loses++;
+			team.num_of_losses++;
 	}
 	else {
 		//second half infoes
@@ -227,6 +241,28 @@ void evaluateSecondHalf(Team& team, Match& match,
 			team.num_of_wins++;
 		}
 		else if (home_total_score > away_total_score)
-			team.num_of_loses++;
+			team.num_of_losses++;
 	}
+}
+
+void processFirstHalfCorners(Team& team, Match& match,
+					unsigned int home_fh_corners,
+					unsigned int away_fh_corners,
+					bool team_is_home) {
+	if (team_is_home)
+		team.num_of_first_half_corners += home_fh_corners;
+	else
+		team.num_of_first_half_corners += away_fh_corners;
+}
+
+void processSecondHalfCorners(Team& team, Match& match,
+								unsigned int home_sh_corners,
+								unsigned int away_sh_corners,
+								bool team_is_home) {
+	if (team_is_home)
+		team.num_of_second_half_corners += home_sh_corners;
+	else
+		team.num_of_second_half_corners += away_sh_corners;
+
+	team.num_of_corners += (team.num_of_first_half_corners + team.num_of_second_half_corners);
 }

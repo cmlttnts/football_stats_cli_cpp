@@ -6,3 +6,4 @@
 #include "Match.h"
 
 void presentTeamInfo(const Team&);
+void _presentWinsAndLosses(const Team&);

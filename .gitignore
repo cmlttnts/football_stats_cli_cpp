@@ -1,0 +1,6 @@
+iddaa_cpp/Debug/
+iddaa_cpp/*.sln
+iddaa_cpp/*.vcxproj
+iddaa_cpp/*.vcxproj.filters
+iddaa_cpp/*.vcxproj.user
+iddaa_cpp/.vs
