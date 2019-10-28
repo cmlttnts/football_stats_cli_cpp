@@ -24,21 +24,25 @@ int main(){
 			Team team(user_input);
 			bool failure = true;
 			// Read files to modify team's properties
-			for (const auto& name : file_names)
-				failure = failure && simpleParse(name, team);
+			for (const auto& name : file_names) {
+				//if we find at least 1 match we say it is success
+				failure = simpleParse(name, team) && failure;
+				//std::cout << name << "\n";
+			}
 			// Preset team's info
 			if (failure)
 				std::cout << "No match found" << "\n";
 			else {
-
-			int n = 1;
-			for (auto& match : team.matches) {
-				std::cout << n << "-) ";
-				match.prettyPresent();
-				Sleep(500);
-				n++;
-			}
-			presentTeamInfo(team);
+				//std::cout << team.matches.size() << "size \n";
+				int n = 1;
+				for (auto& match : team.matches) {
+					std::cout << n << "-) ";
+					match.prettyPresent();
+					//give some time to read
+					Sleep(1500);
+					n++;
+				}
+				presentTeamInfo(team);
 			}
 		}
 	}

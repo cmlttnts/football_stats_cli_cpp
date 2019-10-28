@@ -23,7 +23,6 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 		//lines are read line by line
 		int next_line = 2;
 		bool first_line = true;
-		unsigned int word_no = 1;
 		bool parse_finished = false;
 		bool team_home = true;
 		Match a_match;
@@ -114,6 +113,7 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 					getline(stream, s1, ' ');
 					getline(stream, s2, ' ');
 					processSecondHalfCorners(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
+					//cout << line << "line printing \n";
 					next_line = 0;
 				
 				}
