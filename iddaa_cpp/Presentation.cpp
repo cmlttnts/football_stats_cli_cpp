@@ -28,9 +28,22 @@ void _presentWinsAndLosses(const Team& team) {
 
 // Goals info
 	cout << "\t\t\tGOALS INFORMATION\n";
-	cout << "over 2.5       : " << team.num_of_above_2_5_matches << "\n";
-	cout << "below 3.5      : " << team.num_of_below_3_5_matches << "\n";
-	cout << "half below 0.5 : " << team.num_of_below_0_5_half_matches << "\n";
-	cout << "half above 1.5 : " << team.num_of_above_1_5_half_matches << "\n";
+	cout << "2.5 ust    : " << team.num_of_above_2_5_matches << " ";
+	cout << "3.5 alt    : " << team.num_of_below_3_5_matches << "\n";
+	cout << "iy 0.5 alt : " << team.num_of_below_0_5_half_matches << " ";
+	cout << "iy 1.5 ust : " << team.num_of_above_1_5_half_matches << "\n";
+
+//corner info
+	cout << "\t\t\tKORNER ISTATISTIKLERI\n";
+	if (team.num_of_corner_info_match > 0) {
+		cout << "korner bilgisi olan mac sayisi: " << team.num_of_corner_info_match << "\n";
+		cout << "1y ort. : " << team.num_of_first_half_corners / float(team.num_of_corner_info_match);
+		cout << " / 2y ort. : " << team.num_of_second_half_corners / float(team.num_of_corner_info_match);
+		cout << " = Mac sonu ort. : " << team.num_of_corners / float(team.num_of_corner_info_match);
+		cout << "\n";
+	}
+	else {
+		cout << "Korner bilgisi yok\n";
+	}
 }
 

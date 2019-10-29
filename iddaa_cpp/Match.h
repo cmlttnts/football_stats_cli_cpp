@@ -14,12 +14,23 @@ public:
 	std::string away_name;
 	std::string comment;
 	std::string date;
-	unsigned int home_first_half_goals;
-	unsigned int home_second_half_goals;
-	unsigned int home_total_goals;
-	unsigned int away_first_half_goals;
-	unsigned int away_second_half_goals;
-	unsigned int away_total_goals;
+	//goals
+	unsigned int home_first_half_goals = 0;
+	unsigned int home_second_half_goals = 0;
+	unsigned int home_total_goals = 0;
+	unsigned int away_first_half_goals = 0;
+	unsigned int away_second_half_goals = 0;
+	unsigned int away_total_goals = 0;
+	//corners
+	bool corner_info_available = false;
+	unsigned int home_fh_corners= 0;
+	unsigned int home_sh_corners= 0;
+	unsigned int away_fh_corners=0;
+	unsigned int away_sh_corners = 0;
+	unsigned int home_total_corners = 0;
+	unsigned int away_total_corners = 0;
+
+	//results
 	MatchResult first_half_result;
 	MatchResult second_half_result;
 	MatchResult final_result;

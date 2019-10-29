@@ -1,0 +1,28 @@
+Date 1.10.2019
+rmadrid brugge 0 2 2 2 c 8 0 6 1
+. brugge yenebilirdi, kirmizi yedi 2y
+galatasaray paris 0 0 0 1 c 2 5 3 2
+. gs iyi gibi gozuktu, muslera olmasa fark yerdi, paris eksik coktu
+tottenham bmunih 1 2 2 7 c 5 4 1 0
+. munihin vurdugu gol oldu, totnim takim ici kavga varmis
+kizilyildiz olympiakos 0 1 3 1 c 2 0 6 1
+. kirmizi yedi olym, mac dondu
+atalanta shakhtar 1 1 1 2 c 1 1 2 3
+. shakhtar son dk golu ile yendi
+mancity zagreb 0 0 2 0 c 1 1 9 0
+. city one gecemeyince kornerde cosuyor dikkat
+juventus leverkusen 1 0 3 0 c 1 1 1 3
+moskova atmadrid 0 0 0 2 c 1 4 6 3
+. yine madrid yine korner, 2.5 alt ve madrid tutmustu
+genk napoli 0 0 0 0 c 8 4 4 3
+. allahim ne goller kacti, direkler vs
+liverpool salzburg 3 1 4 3 c 2 2 4 0
+. mac az daha donuyordu, salzburg maclari cok gollu
+prag dortmund 0 1 0 2 c 2 2 4 0
+barcelona inter 0 1 2 1 c 0 3 3 0
+. inter efsane oynadi ama messi var karsida
+zenit benfica 1 0 3 1 c 2 2 2 7
+leipzig lyon 0 1 0 2 c 3 1 2 3
+valencia ajax 0 2 0 3 c 1 1 3 1
+. alt ve ajax oynadik gitti son dkda gol atti
+lille chelsea 1 1 1 2 c 4 0 4 4

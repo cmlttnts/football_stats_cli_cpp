@@ -82,14 +82,12 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 							a_match.home_name = temp;
 							a_match.away_name = buffer;
 							team_home = false;
-							match_found = true;
 						}
 					}
 					else {
 						a_match.home_name = buffer;
 						getline(stream, buffer, ' ');
 						a_match.away_name = buffer;
-						match_found = true;
 						team_home = true;
 					}
 					std::string s1;
@@ -97,18 +95,29 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 					//get first half result
 					getline(stream, s1, ' ');
 					getline(stream, s2, ' ');
+					if (s1.empty() || s2.empty())
+						break;
 					evaluateFirstHalf(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
 					//get match result
 					getline(stream, s1, ' ');
 					getline(stream, s2, ' ');
+					if (s1.empty() || s2.empty())
+						break;
+					match_found = true;
 					evaluateSecondHalf(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
-					//get corner values
+					//check if corner info is there
 					getline(stream, s1, ' ');
-					getline(stream, s2, ' ');
-					processFirstHalfCorners(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
-					getline(stream, s1, ' ');
-					getline(stream, s2, ' ');
-					processSecondHalfCorners(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
+					std::string corner_info_exists = "c";
+					if (!s1.compare(corner_info_exists)) {
+						//cout << "corner info exists\n";
+						//get corner values
+						getline(stream, s1, ' ');
+						getline(stream, s2, ' ');
+						processFirstHalfCorners(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
+						getline(stream, s1, ' ');
+						getline(stream, s2, ' ');
+						processSecondHalfCorners(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
+					}
 					//cout << line << "line printing \n";
 					next_line = 0;
 				
@@ -245,6 +254,9 @@ void processFirstHalfCorners(Team& team, Match& match,
 					unsigned int home_fh_corners,
 					unsigned int away_fh_corners,
 					bool team_is_home) {
+
+	match.home_fh_corners = home_fh_corners;
+	match.away_fh_corners = away_fh_corners;
 	if (team_is_home)
 		team.num_of_first_half_corners += home_fh_corners;
 	else
@@ -255,10 +267,22 @@ void processSecondHalfCorners(Team& team, Match& match,
 								unsigned int home_sh_corners,
 								unsigned int away_sh_corners,
 								bool team_is_home) {
-	if (team_is_home)
-		team.num_of_second_half_corners += home_sh_corners;
-	else
-		team.num_of_second_half_corners += away_sh_corners;
+	match.home_sh_corners = home_sh_corners;
+	match.away_sh_corners = away_sh_corners;
+	match.home_total_corners = match.home_fh_corners + match.home_sh_corners;
+	match.away_total_corners = match.away_fh_corners + match.away_sh_corners;
+	match.corner_info_available = true;
 
-	team.num_of_corners += (team.num_of_first_half_corners + team.num_of_second_half_corners);
+	//how many match has corner info
+	team.num_of_corner_info_match++;
+	if (team_is_home) {
+		team.num_of_second_half_corners += home_sh_corners;
+		team.num_of_corners += (match.home_fh_corners + match.home_sh_corners);
+	}
+	else {
+		team.num_of_second_half_corners += away_sh_corners;
+		team.num_of_corners += (match.away_fh_corners + match.away_sh_corners);
+	}
+
+
 }
