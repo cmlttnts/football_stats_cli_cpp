@@ -16,9 +16,19 @@ final_result(DRAW)
 }
 
 
+#include <windows.h>
 
 void Match::prettyPresent() {
 
+	HANDLE h_cons;
+	h_cons = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	if (picked_team_result == TEAM_WIN)
+		SetConsoleTextAttribute(h_cons, 2);
+	else if (picked_team_result == TEAM_LOSS)
+		SetConsoleTextAttribute(h_cons, 12);
+	else
+		SetConsoleTextAttribute(h_cons, 7);
 	std::cout << "\t\t\tTarih : " << date << "\n";
 	pretty_str = "\t" + home_name + "-" + away_name + " : ";
 	pretty_str += "1Y: " + std::to_string(home_first_half_goals) + "-";
@@ -35,7 +45,7 @@ void Match::prettyPresent() {
 		std::cout << home_sh_corners << "-" << away_sh_corners << "= ";
 		std::cout << home_total_corners << "-" << away_total_corners << ")";
 	}
-
+	SetConsoleTextAttribute(h_cons, 7);
 	std::cout << "\n\n";
 
 

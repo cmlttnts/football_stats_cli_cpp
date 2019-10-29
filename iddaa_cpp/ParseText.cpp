@@ -193,6 +193,7 @@ void evaluateSecondHalf(Team& team, Match& match,
 	else {
 		match.final_result = DRAW;
 		team.num_of_draws++;
+		match.picked_team_result = TEAM_DRAW;
 	}
 
 	if (home_sh_goals > away_sh_goals)
@@ -224,9 +225,12 @@ void evaluateSecondHalf(Team& team, Match& match,
 		if (home_total_score > away_total_score) {
 			team.num_of_home_wins++;
 			team.num_of_wins++;
+			match.picked_team_result = TEAM_WIN;
 		}
-		else if (away_total_score > home_total_score)
+		else if (away_total_score > home_total_score) {
 			team.num_of_losses++;
+			match.picked_team_result = TEAM_LOSS;
+		}
 	}
 	else {
 		//second half infoes
@@ -244,12 +248,15 @@ void evaluateSecondHalf(Team& team, Match& match,
 		if (away_total_score > home_total_score) {
 			team.num_of_away_wins++;
 			team.num_of_wins++;
+			match.picked_team_result = TEAM_WIN;
 		}
-		else if (home_total_score > away_total_score)
+		else if (home_total_score > away_total_score) {
 			team.num_of_losses++;
+			match.picked_team_result = TEAM_LOSS;
+		}
 	}
 }
-
+// TODO: takimlarin yedigi kornerleri de say
 void processFirstHalfCorners(Team& team, Match& match,
 					unsigned int home_fh_corners,
 					unsigned int away_fh_corners,

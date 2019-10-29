@@ -6,6 +6,12 @@ DRAW = 0,
 AWAY_WIN = 2
 };
 
+enum TeamsResult {
+TEAM_WIN = 1,
+TEAM_DRAW = 0,
+TEAM_LOSS = -1
+};
+
 class Match {
 private:
 public:
@@ -31,6 +37,7 @@ public:
 	unsigned int away_total_corners = 0;
 
 	//results
+	TeamsResult picked_team_result;
 	MatchResult first_half_result;
 	MatchResult second_half_result;
 	MatchResult final_result;
