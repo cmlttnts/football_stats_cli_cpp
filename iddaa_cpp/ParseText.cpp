@@ -25,7 +25,6 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 		bool first_line = true;
 		bool parse_finished = false;
 		bool team_home = true;
-		bool jump_line = false;
 		while (getline(file, line) && !parse_finished){
 			istringstream stream(line);
 			// divide line by empty spaces

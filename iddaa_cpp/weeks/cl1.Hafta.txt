@@ -20,7 +20,7 @@ dortmund barcelona 0 0 0 0 c 0 5 3 3
 . messi sonradan girdi, dortmund pen kacirdi
 benfica leipzig 0 0 1 2 c 2 2 3 2
 . leipzig alt ve yener dedik yatti, direkt oynasana...
-chelsea valenci 0 0 0 1 c 4 0 6 0
+chelsea valencia 0 0 0 1 c 4 0 6 0
 . chelsea bu aralar kotuydu, valencianin iyiligi degil yani
 ajax lille 1 0 3 0 c 1 5 3 0
 inter prag 0 0 1 1 c 2 2 0 1

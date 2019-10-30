@@ -1,6 +1,7 @@
 iddaa_cpp/Debug/
 iddaa_cpp/Release/
 iddaa_cpp/*.sln
+iddaa_cpp/*.exe
 iddaa_cpp/*.vcxproj
 iddaa_cpp/*.vcxproj.filters
 iddaa_cpp/*.vcxproj.user
