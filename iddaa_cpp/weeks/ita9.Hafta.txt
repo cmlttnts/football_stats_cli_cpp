@@ -13,4 +13,4 @@ torino cagliari 0 1 1 1 c 3 4 3 7
 . cagliari cikista, one de gecti, kornerle uctu
 roma milan 1 0 2 1 c 2 6 2 2
 . romada hoca gidebilir
-fiorentina şazio 1 1 1 2 c 2 1 5 2
+fiorentina lazio 1 1 1 2 c 2 1 5 2

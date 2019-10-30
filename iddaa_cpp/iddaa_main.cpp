@@ -56,7 +56,15 @@ int main(){
 	std::string exit_input = "q";
 	std::string user_input;
 	std::cout << "Press 'q' for exit" << std::endl;
-	std::vector<std::filesystem::path> file_names = getFileNames("C:/Users/cemal/Desktop/iddaa/iddaa_cpp/weeks");
+	std::string weeks_path;
+	//temporary variables block
+	{
+		std::string cur_path = std::filesystem::current_path().string();
+		std::string iddaa_cpp_part = "\\iddaa_cpp";
+		weeks_path = cur_path.substr(0, cur_path.find(iddaa_cpp_part));
+	}
+	weeks_path += "\\iddaa_cpp\\weeks";
+	std::vector<std::filesystem::path> file_names = getFileNames(weeks_path);
 	while (1) {
 		std::cout << "\n\nGive the name of the team: ";
 		std::cin >> user_input;

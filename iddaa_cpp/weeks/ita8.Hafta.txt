@@ -1,5 +1,5 @@
 Date 19.10.2019
-şazio atalanta 0 3 3 3
+lazio atalanta 0 3 3 3
 napoli hellas 1 0 2 0
 juventus bologna 1 1 2 1
 sassuolo inter 1 3 3 4

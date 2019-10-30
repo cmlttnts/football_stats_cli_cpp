@@ -5,7 +5,7 @@ udinese milan 0 0 1 0
 cagliari brescia 0 0 0 1
 hellas bologna 1 1 1 1
 roma genoa 2 2 3 3
-sampdoria şazio 0 1 0 3
+sampdoria lazio 0 1 0 3
 spal atalanta 2 1 2 3
 torino sassuolo 1 0 2 1
 inter lecce 2 0 4 0
