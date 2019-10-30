@@ -264,10 +264,14 @@ void processFirstHalfCorners(Team& team, Match& match,
 
 	match.home_fh_corners = home_fh_corners;
 	match.away_fh_corners = away_fh_corners;
-	if (team_is_home)
+	if (team_is_home) {
 		team.num_of_first_half_corners += home_fh_corners;
-	else
+		team.num_of_first_half_corners_rec += away_fh_corners;
+	}
+	else {
 		team.num_of_first_half_corners += away_fh_corners;
+		team.num_of_first_half_corners_rec += home_fh_corners;
+	}
 }
 
 void processSecondHalfCorners(Team& team, Match& match,
@@ -284,11 +288,15 @@ void processSecondHalfCorners(Team& team, Match& match,
 	team.num_of_corner_info_match++;
 	if (team_is_home) {
 		team.num_of_second_half_corners += home_sh_corners;
+		team.num_of_second_half_corners_rec += away_sh_corners;
 		team.num_of_corners += (match.home_fh_corners + match.home_sh_corners);
+		team.num_of_corners_rec += (match.away_fh_corners + match.away_sh_corners);
 	}
 	else {
 		team.num_of_second_half_corners += away_sh_corners;
+		team.num_of_second_half_corners_rec += home_sh_corners;
 		team.num_of_corners += (match.away_fh_corners + match.away_sh_corners);
+		team.num_of_corners_rec += (match.home_fh_corners + match.home_sh_corners);
 	}
 
 

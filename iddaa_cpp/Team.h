@@ -37,8 +37,12 @@ public:
 	//corners
 	unsigned int num_of_corner_info_match = 0;
 	unsigned int num_of_first_half_corners = 0;
+	unsigned int num_of_first_half_corners_rec = 0; // recieved
 	unsigned int num_of_second_half_corners = 0;
+	unsigned int num_of_second_half_corners_rec = 0;
+
 	unsigned int num_of_corners = 0;
+	unsigned int num_of_corners_rec = 0;
 
 	Team();
 	Team(std::string);

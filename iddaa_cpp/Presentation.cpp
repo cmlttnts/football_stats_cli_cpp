@@ -37,9 +37,15 @@ void _presentWinsAndLosses(const Team& team) {
 	cout << "\t\t\tKORNER ISTATISTIKLERI\n";
 	if (team.num_of_corner_info_match > 0) {
 		cout << "korner bilgisi olan mac sayisi: " << team.num_of_corner_info_match << "\n";
-		cout << "1y ort. : " << team.num_of_first_half_corners / float(team.num_of_corner_info_match);
+		cout << "Attiklar => 1y ort. : " << team.num_of_first_half_corners / float(team.num_of_corner_info_match);
 		cout << " / 2y ort. : " << team.num_of_second_half_corners / float(team.num_of_corner_info_match);
 		cout << " = Mac sonu ort. : " << team.num_of_corners / float(team.num_of_corner_info_match);
+		cout << "\nYedikleri => "<< "1y ort. : " << team.num_of_first_half_corners_rec / float(team.num_of_corner_info_match);
+		cout << " / 2y ort. : " << team.num_of_second_half_corners_rec / float(team.num_of_corner_info_match);
+		cout << " = Mac sonu ort. : " << team.num_of_corners_rec / float(team.num_of_corner_info_match) << "\n";
+		cout << "Toplam korner ort => " << "1y ort :  " << (team.num_of_first_half_corners + team.num_of_first_half_corners_rec) / float(team.num_of_corner_info_match);
+		cout << " / 2y ort. : " << (team.num_of_second_half_corners + team.num_of_second_half_corners_rec) / float(team.num_of_corner_info_match);
+		cout << " = Mac sonu ort. : " << (team.num_of_corners + team.num_of_corners_rec) / float(team.num_of_corner_info_match);
 		cout << "\n";
 	}
 	else {

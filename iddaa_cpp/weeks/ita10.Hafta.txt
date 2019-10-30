@@ -1,11 +1,11 @@
 Date 29.10.2019
-parma hellas 0 1 0 1
-brescia inter 0 1  
-napoli atalanta    
-cagliari bologna    
-juventus genoa    
-şazio torino    
-sampdoria lecce    
-sassuolo fiorentina    
-udinese roma    
-milan spal    
+parma hellas 0 1 0 1 c 4 3 8 0
+brescia inter 0 1 1 2 c 2 4 7 4
+napoli atalanta
+cagliari bologna
+juventus genoa
+şazio torino
+sampdoria lecce
+sassuolo fiorentina
+udinese roma
+milan spal
