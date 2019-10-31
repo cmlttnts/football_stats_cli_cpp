@@ -1,5 +1,5 @@
 iddaa_cpp/Debug/
-iddaa_cpp/Release/
+iddaa_cpp/Release/*
 !iddaa_cpp/Release/iddaa_cpp.exe
 iddaa_cpp/*.sln
 iddaa_cpp/*.exe
