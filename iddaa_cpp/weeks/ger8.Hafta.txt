@@ -6,5 +6,5 @@ dusseldorf mainz 0 0 1 0
 augsburg bmunih 1 1 2 2
 uberlin freiburg 1 0 2 0
 dortmund mgladbach 0 0 1 0
-koln padeborn 1 0 3 0
+koln paderborn 1 0 3 0
 hoffenheim schalke 0 0 2 0

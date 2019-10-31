@@ -7,4 +7,4 @@ koln mgladbach 0 1 0 1
 uberlin bremen 1 1 1 2
 leipzig bmunih 1 1 1 1
 hoffenheim freiburg 0 2 0 3
-padeborn schalke 1 1 1 5
+paderborn schalke 1 1 1 5
