@@ -157,6 +157,7 @@ void evaluateFirstHalf(Team& team, Match& match,
 
 	if (is_team_home) {
 		team.num_of_first_half_goals += home_fh_score;
+		team.num_of_first_half_rec_goals += away_fh_score;
 		if (home_fh_score > away_fh_score)
 			team.num_of_first_half_wins++;
 		else if (home_fh_score < away_fh_score)
@@ -164,6 +165,7 @@ void evaluateFirstHalf(Team& team, Match& match,
 	}
 	else {
 		team.num_of_first_half_goals += away_fh_score;
+		team.num_of_first_half_rec_goals += home_fh_score;
 		if (away_fh_score > home_fh_score)
 			team.num_of_first_half_wins++;
 		else if (away_fh_score < home_fh_score)
@@ -255,7 +257,6 @@ void evaluateSecondHalf(Team& team, Match& match,
 		}
 	}
 }
-// TODO: takimlarin yedigi kornerleri de say
 void processFirstHalfCorners(Team& team, Match& match,
 					unsigned int home_fh_corners,
 					unsigned int away_fh_corners,

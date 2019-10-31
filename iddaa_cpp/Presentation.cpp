@@ -1,4 +1,6 @@
 #include "Presentation.h"
+#include "boost/format.hpp"
+#include <windows.h>
 
 using namespace std;
 
@@ -6,35 +8,85 @@ void presentTeamInfo(const Team& team) {
 	_presentWinsAndLosses(team);
 }
 
+#define WHITE_COL 7
+#define CYAN_COL 11
+#define READ_COL 12
+#define BLUE_COL 9
+
+#define setTitleColor() SetConsoleTextAttribute(h_cons, CYAN_COL)
+#define setInfoColor() SetConsoleTextAttribute(h_cons, WHITE_COL)
 void _presentWinsAndLosses(const Team& team) {
+	using boost::format;
+	HANDLE h_cons;
+	h_cons = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	cout << "\t\t\tWIN LOS INFORMATION" << "\n";
+	setTitleColor();
+	cout << format("%30s %s") % "" % "MAC SONUCU ISTATISTIKLERI\n";
+	setInfoColor();
 //final result info
-	cout << "Total Matches: " << team.num_of_matches << "\n(W: " << team.num_of_wins;
-	cout << " D: " << team.num_of_draws << " L: " << team.num_of_losses << ")";
-	cout << " Percentage: (W%: " << team.num_of_wins * 100 / float(team.num_of_matches);
-	cout << " D%: " << team.num_of_draws * 100 / float(team.num_of_matches);
-	cout << " L%: " << team.num_of_losses * 100 / float(team.num_of_matches) << ")\n";
+	cout << format("%s %2u%s") % "Toplam Mac Sayisi:" % team.num_of_matches % "\n";
+	cout << format("(W: %2u D: %2u L: %2u)") % team.num_of_wins % team.num_of_draws % team.num_of_losses;
+	cout << format(" Yuzdelik: (W: %s%5.2f") % "%" % (team.num_of_wins * 100 / float(team.num_of_matches));
+	cout << format(" D: %s%5.2f") % "%" % (team.num_of_draws * 100 / float(team.num_of_matches));
+	cout << format(" L: %s%5.2f)\n") % "%" % (team.num_of_losses * 100 / float(team.num_of_matches));
 //first half info
-	cout << "\t\t\tIlk yarilarda\n";
-	cout << "(W: " << team.num_of_first_half_wins;
-	cout << " D: " << team.num_of_matches - team.num_of_first_half_wins - team.num_of_first_half_losses;
-	cout << " L: " << team.num_of_first_half_losses << ")\n";
+	setTitleColor();
+	cout << format("%30s %s")% "" % "ILK YARI ISTATISTIKLERI\n";
+	setInfoColor();
+	cout << format("%s %2u%s") % "Toplam Mac Sayisi:" % team.num_of_matches % "\n";
+	cout << format("(W: %2u D: %2u L: %2u)") % team.num_of_first_half_wins % (team.num_of_matches - team.num_of_first_half_wins - team.num_of_first_half_losses) % team.num_of_first_half_losses;
+	cout << format(" Yuzdelik: (W: %s%5.2f") % "%" % (team.num_of_first_half_wins * 100 / float(team.num_of_matches));
+	cout << format(" D: %s%5.2f") % "%" % ((team.num_of_matches - team.num_of_first_half_wins - team.num_of_first_half_losses) * 100 / float(team.num_of_matches));
+	cout << format(" L: %s%5.2f)\n") % "%" % (team.num_of_first_half_losses * 100 / float(team.num_of_matches));
 //second half info
-	cout << "\t\t\tIkinci yarilarda\n";
-	cout << "(W: " << team.num_of_second_half_wins;
-	cout << " D: " << team.num_of_matches - team.num_of_second_half_wins - team.num_of_second_half_losses;
-	cout << " L: " << team.num_of_second_half_losses << ")\n";
-
+	setTitleColor();
+	cout << format("%30s %s")% "" % "IKINCI YARI ISTATISTIKLERI\n";
+	setInfoColor();
+	cout << format("%s %2u%s") % "Toplam Mac Sayisi:" % team.num_of_matches % "\n";
+	cout << format("(W: %2u D: %2u L: %2u)") % team.num_of_second_half_wins % (team.num_of_matches - team.num_of_second_half_wins - team.num_of_second_half_losses) % team.num_of_second_half_losses;
+	cout << format(" Yuzdelik: (W: %s%5.2f") % "%" % (team.num_of_second_half_wins * 100 / float(team.num_of_matches));
+	cout << format(" D: %s%5.2f") % "%" % ((team.num_of_matches - team.num_of_second_half_wins - team.num_of_second_half_losses) * 100 / float(team.num_of_matches));
+	cout << format(" L: %s%5.2f)\n") % "%" % (team.num_of_second_half_losses * 100 / float(team.num_of_matches));
+	
 // Goals info
-	cout << "\t\t\tGOLLER\n";
-	cout << "2.5 ust    : " << team.num_of_above_2_5_matches << " / ";
-	cout << "3.5 alt    : " << team.num_of_below_3_5_matches << "\n";
-	cout << "iy 0.5 alt : " << team.num_of_below_0_5_half_matches << " / ";
-	cout << "iy 1.5 ust : " << team.num_of_above_1_5_half_matches << "\n";
+	//final goals
+	setTitleColor();
+	cout << format("%30s %s") % "" % "MAC SONU GOL ISTATISTIKLERI\n";
+	setInfoColor();
+	cout << format("%s %2u%s") % "Toplam Mac Sayisi:" % team.num_of_matches % "\n";
+	cout << format("%-12s %2u   %s %5.2f\n") % "Attiklari :" % team.num_of_goals % "Mac basina ort:" % (team.num_of_goals / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_rec_goals % "Mac basina ort:" % (team.num_of_rec_goals / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_goals + team.num_of_rec_goals) % "Mac basina ort:" % ((team.num_of_goals + team.num_of_rec_goals) / float(team.num_of_matches));
+	cout << "Gol yemedikleri mac sayisi: " << team.num_of_clean_sheets << "\n";
+	// first half goals
+	setTitleColor();
+	cout << format("%30s %s") % "" % "ILK YARI GOL ISTATISTIKLERI\n";
+	setInfoColor();
+	cout << format("%s %2u%s") % "Toplam Mac Sayisi:" % team.num_of_matches % "\n";
+	cout << format("%-12s %2u   %s %5.2f\n") % "Attiklari :" % team.num_of_first_half_goals % "Mac basina ort:" % (team.num_of_first_half_goals / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_first_half_rec_goals % "Mac basina ort:" % (team.num_of_first_half_rec_goals / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_first_half_goals + team.num_of_first_half_rec_goals) % "Mac basina ort:" % ((team.num_of_first_half_goals + team.num_of_first_half_rec_goals) / float(team.num_of_matches));
+	//second half goals
+	setTitleColor();
+	cout << format("%30s %s") % "" % "IKINCI YARI GOL ISTATISTIKLERI\n";
+	setInfoColor();
+	cout << format("%s %2u%s") % "Toplam Mac Sayisi:" % team.num_of_matches % "\n";
+	cout << format("%-12s %2u   %s %5.2f\n") % "Attiklari :" % team.num_of_second_half_goals % "Mac basina ort:" % (team.num_of_second_half_goals / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_second_half_rec_goals % "Mac basina ort:" % (team.num_of_second_half_rec_goals / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_second_half_goals + team.num_of_second_half_rec_goals) % "Mac basina ort:" % ((team.num_of_second_half_goals + team.num_of_second_half_rec_goals) / float(team.num_of_matches));
+// ALT UST
+	setTitleColor();
+	cout << format("%30s %s") % "" % "ALT UST GOL ISTATISTIKLERI\n";
+	setInfoColor();
+	cout << format("%-10s %3s %2u : (%s%5.2f)\n") % "2.5 UST" % ":" % team.num_of_above_2_5_matches % "%" % (team.num_of_above_2_5_matches / float(team.num_of_matches));
+	cout << format("%-10s %3s %2u : (%s%5.2f)\n") % "3.5 ALT" % ":" % team.num_of_below_3_5_matches % "%" % (team.num_of_below_3_5_matches / float(team.num_of_matches));
+	cout << format("%-10s %3s %2u : (%s%5.2f)\n") % "1Y 0.5 ALT" % ":" % team.num_of_below_0_5_half_matches % "%" % (team.num_of_below_0_5_half_matches / float(team.num_of_matches));
+	cout << format("%-10s %3s %2u : (%s%5.2f)\n") % "1Y 1.5 UST" % ":" % team.num_of_above_1_5_half_matches % "%" % (team.num_of_above_1_5_half_matches / float(team.num_of_matches));
 
 //corner info
-	cout << "\t\t\tKORNER ISTATISTIKLERI\n";
+	setTitleColor();
+	cout << format("%30s %s") % "" % "KORNER ISTATISTIKLERI\n";
+	setInfoColor();
 	if (team.num_of_corner_info_match > 0) {
 		cout << "korner bilgisi olan mac sayisi: " << team.num_of_corner_info_match << "\n";
 		cout << "Attiklar => 1y ort. : " << team.num_of_first_half_corners / float(team.num_of_corner_info_match);
