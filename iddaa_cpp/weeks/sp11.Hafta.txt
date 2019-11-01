@@ -7,6 +7,6 @@ bilbao espanyol 2 0 3 0 c 2 3 0 2
 betis celta 1 0 2 1 c 2 4 3 6
 rmadrid leganes 3 0 5 0 c 3 2 5 1
 . cok rahat kazandi, cikisa gecti gs macinda acima
-eibaar villarreal
-mallorca osasuna
-getafe granada
+eibaar villarreal 0 0 2 1 c 1 1 7 2
+mallorca osasuna 1 0 2 2 c 4 1 1 2
+getafe granada 2 0 3 1 c 1 0 1 3

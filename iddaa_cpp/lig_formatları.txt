@@ -1,4 +1,3 @@
-tarih başlangıç bitiş
-lig ismi
-ev_sahibi deplasman ilk_yarı maç_sonucu
-.varsa maçla ilgili yorum
+tarih haftanın_ilk_maçı_tarihi
+ev_sahibi deplasman ilk_yarı maç_sonucu c 1y_korner 2y_korner
+. varsa maçla ilgili yorum

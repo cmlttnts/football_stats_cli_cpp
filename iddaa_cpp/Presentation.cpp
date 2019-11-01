@@ -58,6 +58,7 @@ void _presentWinsAndLosses(const Team& team) {
 	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_rec_goals % "Mac basina ort:" % (team.num_of_rec_goals / float(team.num_of_matches));
 	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_goals + team.num_of_rec_goals) % "Mac basina ort:" % ((team.num_of_goals + team.num_of_rec_goals) / float(team.num_of_matches));
 	cout << "Gol yemedikleri mac sayisi: " << team.num_of_clean_sheets << "\n";
+	cout << "KG VAR biten mac sayisi: " << team.num_of_kg_var_matches << "\n";
 	// first half goals
 	setTitleColor();
 	cout << format("%30s %s") % "" % "ILK YARI GOL ISTATISTIKLERI\n";
@@ -88,17 +89,12 @@ void _presentWinsAndLosses(const Team& team) {
 	cout << format("%30s %s") % "" % "KORNER ISTATISTIKLERI\n";
 	setInfoColor();
 	if (team.num_of_corner_info_match > 0) {
-		cout << "korner bilgisi olan mac sayisi: " << team.num_of_corner_info_match << "\n";
-		cout << "Attiklar => 1y ort. : " << team.num_of_first_half_corners / float(team.num_of_corner_info_match);
-		cout << " / 2y ort. : " << team.num_of_second_half_corners / float(team.num_of_corner_info_match);
-		cout << " = Mac sonu ort. : " << team.num_of_corners / float(team.num_of_corner_info_match);
-		cout << "\nYedikleri => "<< "1y ort. : " << team.num_of_first_half_corners_rec / float(team.num_of_corner_info_match);
-		cout << " / 2y ort. : " << team.num_of_second_half_corners_rec / float(team.num_of_corner_info_match);
-		cout << " = Mac sonu ort. : " << team.num_of_corners_rec / float(team.num_of_corner_info_match) << "\n";
-		cout << "Toplam korner ort => " << "1y ort :  " << (team.num_of_first_half_corners + team.num_of_first_half_corners_rec) / float(team.num_of_corner_info_match);
-		cout << " / 2y ort. : " << (team.num_of_second_half_corners + team.num_of_second_half_corners_rec) / float(team.num_of_corner_info_match);
-		cout << " = Mac sonu ort. : " << (team.num_of_corners + team.num_of_corners_rec) / float(team.num_of_corner_info_match);
-		cout << "\n";
+		cout << format("korner bilgisi olan mac sayisi: %u\n") % team.num_of_corner_info_match;
+		cout << format("%-12s %-8s %5.2f  %-8s %5.2f  %-10s %5.2f)\n") % "Attiklari " % "(1y ort:" % (team.num_of_first_half_corners / float(team.num_of_corner_info_match)) % "2y ort:" % (team.num_of_second_half_corners / float(team.num_of_corner_info_match)) % "Mac sonu ort:" % (team.num_of_corners / float(team.num_of_corner_info_match));
+		cout << format("%-12s %-8s %5.2f  %-8s %5.2f  %-10s %5.2f)\n") % "Yedikleri " % "(1y ort:" % (team.num_of_first_half_corners_rec / float(team.num_of_corner_info_match)) % "2y ort:" % (team.num_of_second_half_corners_rec / float(team.num_of_corner_info_match)) % "Mac sonu ort:" % (team.num_of_corners_rec / float(team.num_of_corner_info_match));
+		cout << format("%-12s %-8s %5.2f  ") % "Toplam " % "(1y ort:" % ((team.num_of_first_half_corners + team.num_of_first_half_corners_rec) / float(team.num_of_corner_info_match));
+		cout << format("%-8s %5.2f  ") % "2y ort:" % ((team.num_of_second_half_corners + team.num_of_second_half_corners_rec) / float(team.num_of_corner_info_match));
+		cout << format("%-10s %5.2f)\n") % "Mac sonu ort:" % ((team.num_of_corners + team.num_of_corners_rec) / float(team.num_of_corner_info_match));
 	}
 	else {
 		cout << "Korner bilgisi yok\n";

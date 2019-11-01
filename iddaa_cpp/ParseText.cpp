@@ -203,6 +203,9 @@ void evaluateSecondHalf(Team& team, Match& match,
 		match.second_half_result = AWAY_WIN;
 	else
 		match.second_half_result = DRAW;
+	//kg var
+	if (home_total_score > 0 && away_total_score > 0)
+		team.num_of_kg_var_matches++;
 
 	//Above 2.5 goals
 	if (home_total_score + away_total_score > 2)

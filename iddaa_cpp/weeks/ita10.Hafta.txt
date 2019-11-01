@@ -9,4 +9,4 @@ sampdoria lecce 0 1 1 1 c 4 3 5 2
 sassuolo fiorentina 1 0 1 2 c 1 4 2 3
 udinese roma 0 1 0 4 c 0 1 5 2
 . roma 1 gol attiktan sonra kirmizi yedi ona ragmen 3 daha atti
-milan spal
+milan spal 0 0 1 0 c 2 4 5 2

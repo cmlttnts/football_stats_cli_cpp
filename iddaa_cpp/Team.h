@@ -33,6 +33,7 @@ public:
 	unsigned int num_of_above_1_5_half_matches = 0;
 	unsigned int num_of_below_0_5_half_matches = 0;
 	unsigned int num_of_clean_sheets = 0;
+	unsigned int num_of_kg_var_matches = 0;
 
 	//corners
 	unsigned int num_of_corner_info_match = 0;
