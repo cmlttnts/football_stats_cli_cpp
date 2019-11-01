@@ -7,49 +7,12 @@
 #include "Match.h"
 #include "ParseTeam.h"
 #include "Files.h"
-#include "Presentation.h"
+#include "PresentTeam.h"
 #include <algorithm>
 #include <sstream>
 #include "Interface.h"
 
-bool sortByDate(const Match& m1, const Match& m2) {
-	
-	std::istringstream date1(m1.date);
-	std::istringstream date2(m2.date);
 
-	std::string day1;
-	std::getline(date1, day1, '.');
-	int i_day1 = std::stoi(day1);
-	
-	std::string month1;
-	std::getline(date1, month1, '.');
-	int i_month1 = std::stoi(month1);
-
-	std::string year1;
-	std::getline(date1, year1);
-	int i_year1 = std::stoi(year1);
-
-	std::string day2;
-	std::getline(date2, day2, '.');
-	int i_day2 = std::stoi(day2);
-
-	std::string month2;
-	std::getline(date2, month2, '.');
-	int i_month2 = std::stoi(month2);
-
-	std::string year2;
-	std::getline(date2, year2);
-	int i_year2 = std::stoi(year2);
-
-	if (i_year1 < i_year2)
-		return true;
-	else if (i_year1 == i_year2 && i_month1 < i_month2)
-		return true;
-	else if (i_year1 == i_year2 && i_month1 == i_month2 && i_day1 < i_day2)
-		return true;
-	else
-		return false;
-}
 
 
 int main(){
@@ -66,36 +29,84 @@ int main(){
 	weeks_path += "\\iddaa_cpp\\weeks";
 	std::vector<std::filesystem::path> file_names = getFileNames(weeks_path);
 	//getInitOptions();
-	while (1) {
-		user_input = getTeamNameFromUser();
-		if (!user_input.compare(exit_input))
-			break;
-		{
-			Team team(user_input);
-			bool failure = true;
-			// Read files to modify team's properties
-			for (const auto& name : file_names) {
-				//if we find at least 1 match we say it is success
-				failure = simpleParse(name, team) && failure;
-				//std::cout << name << "\n";
-			}
-			// Preset team's info
-			if (failure)
-				std::cout << "No match found" << "\n";
-			else {
-				//std::cout << team.matches.size() << "size \n";
-				int n = 1;
-				std::sort(team.matches.begin(), team.matches.end(), sortByDate);
-				for (auto& match : team.matches) {
-					std::cout << n << "-) ";
-					match.prettyPresent();
-					//give some time to read
-					Sleep(500);
-					n++;
+	greeting();
+
+	bool exited = false;
+	bool go_back1 = false;
+	bool go_back2 = false;
+	while (!exited) {
+		INIT_OPTIONS first_option = getInitOptions();
+		go_back1 = false;
+		while (!exited && !go_back1) {
+			if (first_option == INIT_OPTIONS::TEAM_OPTION) {
+				TEAM_OPTIONS second_option = getTeamOption();
+				go_back2 = false;
+				while (!exited && !go_back2) {
+					if (second_option == TEAM_OPTIONS::TEAM_ANALYSIS) {
+						go_back2 = false;
+						while (!exited && !go_back2) {
+							std::string team_name = getTeamNameFromUser();
+							int result = presentTeam(team_name, file_names);
+							if (result == 1)
+								exited = true;
+							else if (result == 2) {
+								go_back2 = true;
+								break;
+							}
+						}
+					}
+					else if (second_option == TEAM_OPTIONS::BEST_TEAM) {
+						//doBestTeamSearch();
+						std::cout << "Cok Yakinda...\n";
+						break;
+					}
+					else if (second_option == TEAM_OPTIONS::GO_BACK) {
+						go_back1 = true;
+						break;
+					}
+					else
+						exited = true;
 				}
-				presentTeamInfo(team);
 			}
+			else if (first_option == INIT_OPTIONS::LEAGUE_OPTION) {
+				//LEAGUE_OPTIONS second_option = getLeagueOption();
+				std::cout << "Cok Yakinda...\n";
+				go_back1 = true;
+				
+			}
+			else
+				exited = true;
 		}
+
+		//user_input = getTeamNameFromUser();
+		//if (!user_input.compare(exit_input))
+		//	break;
+		//{
+		//	Team team(user_input);
+		//	bool failure = true;
+		//	// Read files to modify team's properties
+		//	for (const auto& name : file_names) {
+		//		//if we find at least 1 match we say it is success
+		//		failure = simpleParse(name, team) && failure;
+		//		//std::cout << name << "\n";
+		//	}
+		//	// Preset team's info
+		//	if (failure)
+		//		std::cout << "No match found" << "\n";
+		//	else {
+		//		//std::cout << team.matches.size() << "size \n";
+		//		int n = 1;
+		//		std::sort(team.matches.begin(), team.matches.end(), sortByDate);
+		//		for (auto& match : team.matches) {
+		//			std::cout << n << "-) ";
+		//			match.prettyPresent();
+		//			//give some time to read
+		//			Sleep(500);
+		//			n++;
+		//		}
+		//		presentTeamInfo(team);
+		//	}
+		//}
 	}
 }
 

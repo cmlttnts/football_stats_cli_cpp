@@ -1,12 +1,56 @@
-#include "Presentation.h"
+#include "PresentTeam.h"
 #include "boost/format.hpp"
 #include <windows.h>
+#include "ParseTeam.h"
+#include "MyAlgortihms.h"
+#include <algorithm>
 
+#define BET_MATCH_DELAY 500
 #define INIT_DELAY 2000
 #define BET_PRES_DELAY 1500
 #define BET_CHAPTER_DELAY 1000
 using namespace std;
 using boost::format;
+
+
+int presentTeam(const std::string& team_name, const std::vector<std::filesystem::path>& file_names ) {
+	if (!team_name.compare("q"))
+		return 1;
+	else if (!team_name.compare("g"))
+		return 2;
+	Team team(team_name);
+	bool failure = true;
+	// Read files to modify team's properties
+	for (const auto& name : file_names) {
+		//if we find at least 1 match we say it is success
+		failure = simpleParse(name, team) && failure;
+		//std::cout << name << "\n";
+	}
+	// Preset team's info
+	if (failure) {
+		std::cout << "No match found" << "\n";
+	}
+	else {
+		presentMatchHistory(team);
+		presentTeamInfo(team);
+	}
+	return 0;
+}
+void presentMatchHistory(Team& team) {
+	int n = 1;
+	std::sort(team.matches.begin(), team.matches.end(), sortMatchesByDate);
+	for (auto& match : team.matches) {
+		std::cout << n << "-) ";
+		match.prettyPresent();
+		//give some time to read
+		Sleep(BET_MATCH_DELAY);
+		n++;
+	}
+}
+
+
+
+
 
 void presentTeamInfo(const Team& team) {
 	Sleep(INIT_DELAY);
