@@ -64,7 +64,7 @@ LEAGUE_OPTIONS getLeagueOptions() {
 
 std::string getTeamNameFromUser() {
 	std::string team_name;
-	cout << "\nAnaliz icin takim ismi girin: ";
+	cout << "\nAnaliz icin takim ismi girin(cikmak icin 'q', geri gitmek icin 'g'): ";
 	cin >> team_name;
 	return team_name;
 }

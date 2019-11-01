@@ -36,6 +36,7 @@ int presentTeam(const std::string& team_name, const std::vector<std::filesystem:
 	}
 	return 0;
 }
+
 void presentMatchHistory(Team& team) {
 	int n = 1;
 	std::sort(team.matches.begin(), team.matches.end(), sortMatchesByDate);
@@ -47,10 +48,6 @@ void presentMatchHistory(Team& team) {
 		n++;
 	}
 }
-
-
-
-
 
 void presentTeamInfo(const Team& team) {
 	Sleep(INIT_DELAY);
@@ -104,7 +101,6 @@ void _presentWinsAndLosses(const Team& team) {
 	cout << format(" L: %s%5.2f)\n") % "%" % (team.num_of_second_half_losses * 100 / float(team.num_of_matches));
 }
 // Goals info
-
 void _presentGoals(const Team& team) {
 	HANDLE h_cons;
 	h_cons = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -146,7 +142,6 @@ void _presentGoals(const Team& team) {
 	cout << format("%-10s %3s %2u : (%s%5.2f)\n") % "1Y 0.5 ALT" % ":" % team.num_of_below_0_5_half_matches % "%" % (team.num_of_below_0_5_half_matches / float(team.num_of_matches));
 	cout << format("%-10s %3s %2u : (%s%5.2f)\n") % "1Y 1.5 UST" % ":" % team.num_of_above_1_5_half_matches % "%" % (team.num_of_above_1_5_half_matches / float(team.num_of_matches));
 }
-
 //corner info
 void _presentCorners(const Team& team){
 	HANDLE h_cons;
@@ -167,3 +162,14 @@ void _presentCorners(const Team& team){
 	}
 }
 
+
+//TODO:
+void searchForBestTeam() {
+
+}
+
+void printTeamsPerLeague(const std::vector<std::filesystem::path>& file_names) {
+	for (const auto& file_name : file_names) {
+		//TOOD: get team names from /teams directory, and order them in alphabetical order
+	}
+}

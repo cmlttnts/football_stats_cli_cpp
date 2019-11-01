@@ -44,7 +44,7 @@ int main(){
 				while (!exited && !go_back2) {
 					if (second_option == TEAM_OPTIONS::TEAM_ANALYSIS) {
 						go_back2 = false;
-						while (!exited && !go_back2) {
+						while (!exited) {
 							std::string team_name = getTeamNameFromUser();
 							int result = presentTeam(team_name, file_names);
 							if (result == 1)
@@ -78,35 +78,6 @@ int main(){
 				exited = true;
 		}
 
-		//user_input = getTeamNameFromUser();
-		//if (!user_input.compare(exit_input))
-		//	break;
-		//{
-		//	Team team(user_input);
-		//	bool failure = true;
-		//	// Read files to modify team's properties
-		//	for (const auto& name : file_names) {
-		//		//if we find at least 1 match we say it is success
-		//		failure = simpleParse(name, team) && failure;
-		//		//std::cout << name << "\n";
-		//	}
-		//	// Preset team's info
-		//	if (failure)
-		//		std::cout << "No match found" << "\n";
-		//	else {
-		//		//std::cout << team.matches.size() << "size \n";
-		//		int n = 1;
-		//		std::sort(team.matches.begin(), team.matches.end(), sortByDate);
-		//		for (auto& match : team.matches) {
-		//			std::cout << n << "-) ";
-		//			match.prettyPresent();
-		//			//give some time to read
-		//			Sleep(500);
-		//			n++;
-		//		}
-		//		presentTeamInfo(team);
-		//	}
-		//}
 	}
 }
 
