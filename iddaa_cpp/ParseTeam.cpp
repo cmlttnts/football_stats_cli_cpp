@@ -1,4 +1,4 @@
-#include "ParseText.h"
+#include "ParseTeam.h"
 #include <sstream>
 #include "Match.h"
 #include "Team.h"
@@ -45,27 +45,6 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 					getline(stream, buffer);
 					a_match.comment = buffer;
 					parse_finished = true;
-				}
-				//LEAGUES
-				else if (!buffer.compare(tr_str)){
-					//TODO: league statistics maybe lates, just jump over leauge name lines
-					break;
-				}
-				else if (!buffer.compare(eng_str)){
-					//TODO: league statistics maybe lates, just jump over leauge name lines
-					break;
-				}
-				else if (!buffer.compare(ita_str)){
-					//TODO: league statistics maybe lates, just jump over leauge name lines
-					break;
-				}
-				else if (!buffer.compare(sp_str)){
-					//TODO: league statistics maybe lates, just jump over leauge name lines
-					break;
-				}
-				else if (!buffer.compare(ger_str)){
-					//TODO: league statistics maybe lates, just jump over leauge name lines
-					break;
 				}
 				// Actual match info
 				else{

@@ -5,12 +5,12 @@
 #include <iostream>
 #include "Team.h"
 #include "Match.h"
-#include "ParseText.h"
+#include "ParseTeam.h"
 #include "Files.h"
 #include "Presentation.h"
 #include <algorithm>
 #include <sstream>
-
+#include "Interface.h"
 
 bool sortByDate(const Match& m1, const Match& m2) {
 	
@@ -65,9 +65,9 @@ int main(){
 	}
 	weeks_path += "\\iddaa_cpp\\weeks";
 	std::vector<std::filesystem::path> file_names = getFileNames(weeks_path);
+	//getInitOptions();
 	while (1) {
-		std::cout << "\n\nGive the name of the team: ";
-		std::cin >> user_input;
+		user_input = getTeamNameFromUser();
 		if (!user_input.compare(exit_input))
 			break;
 		{

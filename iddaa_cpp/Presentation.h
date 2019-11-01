@@ -7,3 +7,5 @@
 
 void presentTeamInfo(const Team&);
 void _presentWinsAndLosses(const Team&);
+void _presentGoals(const Team&);
+void _presentCorners(const Team&);
