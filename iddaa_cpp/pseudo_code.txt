@@ -1,0 +1,55 @@
+﻿TODO: En İyi özelliklere göre ilk 3 takım sıralama
+Özellikler:
+	*Sonuçlar
+		- En fazla 1y önde geçen
+		- En fazla 1y geri düşen
+		- En fazla 2y yenen
+		- En fazla 2y kaybeden
+		- En fazla maç kazanan
+		- En fazla maç kaybeden
+		- En fazla berabere kalan
+		- En fazla geriye düşüp maç döndüren (1/0,2/0,1/2,2/1)
+		- En fazla öne geçip geriye düşen (1/0,2/0,1/2,2/1)
+	*Goller
+		- Ortalama en çok gol atan
+		- Ortalama en çok gol yiyen
+		- Ortalama en az gol atan
+		- Ortalama en az gol yiyen
+		- Ortalama maçları en çok gollü geçen
+		- Ortalama maçları en az gollü geçen
+		- Ortalama 1y en çok gol atan
+		- Ortalama 1y en az gol atan
+		- Ortalama 1y en çok gol yiyen
+		- Ortalama 1y en en az gol yiyen
+		- Ortalama 2y en çok gol atan
+		- Ortalama 2y en çok gol yiyen
+		- Ortalama 2y en az gol atan
+		- Ortalama 2y en az gol yiyen
+		- Maçlarında 1y daha fazla gol olan
+		- Maçlarında 2y daha fazla gol olan
+	*Kornerler
+		- Ortalama en fazla korner atan
+		- Ortalama en fazla korner yiyen
+		- Ortalama 1y en fazla korner atan
+		- Ortalama 1y en fazla korner yiyen
+		- Ortalama 1y en en az korner atan
+		- Ortalama 1y en az korner yiyen
+		- Ortalama 2y en fazla korner atan
+		- Ortalama 2y en fazla korner yiyen
+		- Ortalama 2y en az korner atan
+		- Ortalama 2y en az korner yiyen
+		- Ortalama maçta en fazla korner olan
+		- Ortalama maçta en az korner olan
+TODO: Ligleri maç özelliklerine göre analiz etme
+Özellikler
+	*Sonuçlar
+		-Ev sahibi yenme oranı
+		-Deplasman yenme oranı
+		-Beraber kalma oranı
+	*Goller
+		-2.5 altı bitme oranı
+		-2.5 üstü bitme oranı
+		-3.5 altı bitme oranı
+		-3.5 üstü bitme oranı
+		-1y 1.5 altı bitme oranı
+		-1y 1.5 üstü bitme oranı

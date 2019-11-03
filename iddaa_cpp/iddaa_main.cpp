@@ -20,64 +20,69 @@ int main(){
 	std::string user_input;
 	std::cout << "Press 'q' for exit" << std::endl;
 	std::string weeks_path;
+	std::string teams_path;
 	//temporary variables block
 	{
 		std::string cur_path = std::filesystem::current_path().string();
 		std::string iddaa_cpp_part = "\\iddaa_cpp";
 		weeks_path = cur_path.substr(0, cur_path.find(iddaa_cpp_part));
+		teams_path = cur_path.substr(0, cur_path.find(iddaa_cpp_part));
 	}
 	weeks_path += "\\iddaa_cpp\\weeks";
-	std::vector<std::filesystem::path> file_names = getFileNames(weeks_path);
-	//getInitOptions();
+	teams_path += "\\iddaa_cpp\\teams";
+	std::vector<std::filesystem::path> match_file_names = getFileNames(weeks_path);
+	std::vector<std::filesystem::path> team_file_names = getFileNames(teams_path);
 	greeting();
-
 	bool exited = false;
-	bool go_back1 = false;
-	bool go_back2 = false;
+	bool go_back_to_init = false;
+	bool go_back_to_team = false;
+	bool go_back_to_league = false;
 	while (!exited) {
 		INIT_OPTIONS first_option = getInitOptions();
-		go_back1 = false;
-		while (!exited && !go_back1) {
-			if (first_option == INIT_OPTIONS::TEAM_OPTION) {
+		go_back_to_init = false;
+		switch (first_option)
+		{
+		case INIT_OPTIONS::TEAM_OPTION:
+			while (!exited && !go_back_to_init) {
 				TEAM_OPTIONS second_option = getTeamOption();
-				go_back2 = false;
-				while (!exited && !go_back2) {
-					if (second_option == TEAM_OPTIONS::TEAM_ANALYSIS) {
-						go_back2 = false;
-						while (!exited) {
-							std::string team_name = getTeamNameFromUser();
-							int result = presentTeam(team_name, file_names);
-							if (result == 1)
-								exited = true;
-							else if (result == 2) {
-								go_back2 = true;
-								break;
-							}
-						}
+				go_back_to_team = false;
+				switch (second_option)
+				{
+				case TEAM_OPTIONS::TEAM_ANALYSIS:
+					while (!exited && !go_back_to_team) {
+						std::string team_name = getTeamNameFromUser();
+						int choice = presentTeam(team_name, match_file_names);
+						exited = choice == 1;
+						go_back_to_team = choice == 2;
 					}
-					else if (second_option == TEAM_OPTIONS::BEST_TEAM) {
-						//doBestTeamSearch();
-						std::cout << "Cok Yakinda...\n";
-						break;
-					}
-					else if (second_option == TEAM_OPTIONS::GO_BACK) {
-						go_back1 = true;
-						break;
-					}
-					else
-						exited = true;
+					break;
+				case TEAM_OPTIONS::BEST_TEAM:
+					std::cout << "Cok Yakinda Geliyor...\n";
+					go_back_to_team = true;
+					break;
+				case TEAM_OPTIONS::GO_BACK:
+					go_back_to_init = true;
+					break;
+				case TEAM_OPTIONS::EXIT_OPTION:
+					exited = true;
+					break;
+				default:
+					break;
 				}
 			}
-			else if (first_option == INIT_OPTIONS::LEAGUE_OPTION) {
-				//LEAGUE_OPTIONS second_option = getLeagueOption();
-				std::cout << "Cok Yakinda...\n";
-				go_back1 = true;
-				
-			}
-			else
-				exited = true;
+			break;
+		case INIT_OPTIONS::LEAGUE_OPTION:
+			std::cout << "Cok Yakinda Geliyor...\n";
+			go_back_to_init = true;
+			break;
+		case INIT_OPTIONS::TEAM_NAMES_OPTION:
+			printTeamsPerLeague(team_file_names);
+			break;
+		case INIT_OPTIONS::EXIT_OPTION:
+			exited = true;
+		default:
+			break;
 		}
-
 	}
 }
 

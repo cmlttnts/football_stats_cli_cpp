@@ -40,3 +40,8 @@ bool sortMatchesByDate(const Match& m1, const Match& m2) {
 	else
 		return false;
 }
+
+
+bool sortByAlphabethical() {
+
+}

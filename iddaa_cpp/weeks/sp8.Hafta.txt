@@ -1,5 +1,5 @@
 Date 4.10.2019
-betis eibaar 0 1 1 1
+betis eibar 0 1 1 1
 leganes levante 0 1 1 2
 rmadrid granada 2 0 4 2
 valencia alaves 1 0 2 1

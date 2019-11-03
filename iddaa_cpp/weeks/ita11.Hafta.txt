@@ -1,11 +1,14 @@
 Date 2.11.2019
-roma napoli    
-bologna inter    
-torino juventus    
-atalanta cagliari    
-genoa udinese    
-hellas brescia    
-lecce sassuolo    
-fiorentina parma    
-milan lazio    
-spal sampdoria    
+roma napoli 1 0 2 1 c 4 3 6 1
+. roma yine kirmizi yedi, kornerler fena degil
+bologna inter 0 0 1 2 c 1 2 1 5
+. inter ilk yari gol iptal oldu, geriye dustu son dklar penalti geldi
+torino juventus 0 0 0 1 c 8 3 3 3
+. bu nasil bir ilk yari korneri
+atalanta cagliari
+genoa udinese
+hellas brescia
+lecce sassuolo
+fiorentina parma
+milan lazio
+spal sampdoria

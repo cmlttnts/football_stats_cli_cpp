@@ -168,8 +168,3 @@ void searchForBestTeam() {
 
 }
 
-void printTeamsPerLeague(const std::vector<std::filesystem::path>& file_names) {
-	for (const auto& file_name : file_names) {
-		//TOOD: get team names from /teams directory, and order them in alphabetical order
-	}
-}

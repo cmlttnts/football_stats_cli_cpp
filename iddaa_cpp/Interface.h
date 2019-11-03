@@ -1,10 +1,12 @@
 #pragma once
 #include <string>
-
+#include <filesystem>
+#include <vector>
 //inital options
 enum class INIT_OPTIONS {
 TEAM_OPTION,
 LEAGUE_OPTION,
+TEAM_NAMES_OPTION,
 EXIT_OPTION
 };
 //if team options selected, those options
@@ -29,3 +31,5 @@ TEAM_OPTIONS getTeamOption();
 std::string getTeamNameFromUser();
 
 LEAGUE_OPTIONS getLeagueOption();
+void printTeamsPerLeague(const std::vector<std::filesystem::path>&);
+std::vector<std::string> _getTeamsFromFile(const std::string&);

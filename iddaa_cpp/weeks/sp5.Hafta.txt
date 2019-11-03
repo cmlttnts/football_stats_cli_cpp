@@ -1,7 +1,7 @@
 Date 20.9.2019
 osasuna betis 0 0 0 0
 villarreal valladolid 0 0 2 0
-levante eibaar 0 0 0 0
+levante eibar 0 0 0 0
 atmadrid celta 0 0 0 0
 granada barcelona 1 0 2 0
 getafe mallorca 2 0 4 2

@@ -7,5 +7,5 @@ getafe alaves 1 1 1 1
 betis leganes 0 0 2 1
 valencia mallorca 1 0 2 0
 espanyol granada 0 1 0 3
-atmadrid eibaar 1 2 3 2
+atmadrid eibar 1 2 3 2
 villarreal rmadrid 1 1 2 2

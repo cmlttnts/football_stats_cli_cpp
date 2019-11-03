@@ -1,7 +1,7 @@
 Date 25.10.2019
 villarreal alaves 1 0 4 1 c 5 2 0 2
 leganes mallorca 1 0 1 0 c 1 4 3 1
-valladolid eibaar 2 0 2 0 c 3 2 1 1
+valladolid eibar 2 0 2 0 c 3 2 1 1
 atmadrid bilbao 1 0 2 0 c 2 6 5 1
 . atletico maclari korner cok gibi
 celta sociedad 0 0 0 1 c 3 4 0 3
