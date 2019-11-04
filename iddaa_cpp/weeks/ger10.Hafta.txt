@@ -9,5 +9,6 @@ bremen freiburg 1 1 2 2 c 2 0 3 0
 . bremen 90+2de 10 kisi kalan freiburgdan gol yedi 2-2 oldu
 uberlin hberlin 0 0 1 0 c 0 2 1 2
 . berlin derbisi stresli, 90da gol geldi
-dusseldorf koln
-augsburg schalke
+dusseldorf koln 1 0 2 0 c 1 0 2 4
+augsburg schalke 1 1 2 3 c 1 1 0 5
+. ozan kabak golu atti, schalke iyi oynuyor genelde

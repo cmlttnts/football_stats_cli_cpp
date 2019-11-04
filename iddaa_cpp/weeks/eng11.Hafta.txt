@@ -14,5 +14,7 @@ westham newcastle 0 2 2 3 c 5 3 2 0
 . bu mac nasil bu kadar gollu olabilir
 watford chelsea 0 1 1 2 c 1 4 0 2
 . celsi cok iyi gidiyor, golu de yemese kupon gelcekti
-palace leicester
-everton tottenham
+palace leicester 0 0 0 2 c 2 4 3 2
+. ust leicester oynadik yattik :(
+everton tottenham 0 0 1 1 c 2 2 3 0
+. 90+7 de cenk tosun atti, totnim kirmizi yedi 80de
