@@ -25,7 +25,7 @@ INIT_OPTIONS getInitOptions() {
 		else if (!user_in.compare("3"))
 			return INIT_OPTIONS::TEAM_NAMES_OPTION;
 		else if (!user_in.compare("q"))
-			return INIT_OPTIONS::EXIT_OPTION;
+			return INIT_OPTIONS::EXIT;
 		else {
 			cout << "Gecersiz giris, tekrar deneyin...\n";
 			input_valid = false;
@@ -51,7 +51,7 @@ TEAM_OPTIONS getTeamOption() {
 		else if (!user_in.compare("2"))
 			return TEAM_OPTIONS::BEST_TEAM;
 		else if (!user_in.compare("q"))
-			return TEAM_OPTIONS::EXIT_OPTION;
+			return TEAM_OPTIONS::EXIT;
 		else if (!user_in.compare("g"))
 			return TEAM_OPTIONS::GO_BACK;
 		else {
@@ -73,6 +73,58 @@ std::string getTeamNameFromUser() {
 	cin >> team_name;
 	return team_name;
 }
+
+BEST_TEAM_OPTIONS getBestTeamOption() {
+	//system("cls");
+	cout << format("%-30s %s %-4s\n") % "1.2.1)En iyi sonuc alanlar" % ":" % "1";
+	cout << format("%-30s %s %-4s\n") % "1.2.2)En kotu sonuc alanlar" % ":" % "2";
+	cout << format("%-30s %s %-4s\n") % "1.2.3)En cok gol atanlar" % ":" % "3";
+	cout << format("%-30s %s %-4s\n") % "1.2.4)En az gol atanlar" % ":" % "4";
+	cout << format("%-30s %s %-4s\n") % "1.2.5)En cok gol yiyenler" % ":" % "5";
+	cout << format("%-30s %s %-4s\n") % "1.2.6)En az gol yiyenler" % ":" % "6";
+	cout << format("%-30s %s %-4s\n") % "1.2.7)Geri donuslerde enler" % ":" % "7";
+	cout << format("%-30s %s %-4s\n") % "1.2.8)Kornerlerde enler" % ":" % "8";
+
+	cout << format("%-30s %s %-4s\n") % "Bir geri gitmek icin" % ":" % "g";
+	cout << format("%-30s %s %-4s\n") % "Cikis icin" % ":" % "q";
+
+	std::string user_in;
+	bool input_valid = false;
+	while (!input_valid) {
+		cin >> user_in;
+		input_valid = true;
+		if (!user_in.compare("1"))
+			return BEST_TEAM_OPTIONS::BEST_RESULTS;
+		else if (!user_in.compare("2"))
+			return BEST_TEAM_OPTIONS::WORST_RESULTS;
+		else if (!user_in.compare("3"))
+			return BEST_TEAM_OPTIONS::MOST_GOALS_SCORED;
+		else if (!user_in.compare("4"))
+			return BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED;
+		else if (!user_in.compare("5"))
+			return BEST_TEAM_OPTIONS::MOST_GOALS_RECEIVED;
+		else if (!user_in.compare("6"))
+			return BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED;
+		else if (!user_in.compare("7"))
+			return BEST_TEAM_OPTIONS::COMEBAKCS;
+		else if (!user_in.compare("8"))
+			return BEST_TEAM_OPTIONS::CORNERS;
+		else if (!user_in.compare("g"))
+			return BEST_TEAM_OPTIONS::GO_BACK;
+		else if (!user_in.compare("q"))
+			return BEST_TEAM_OPTIONS::EXIT;
+		else {
+			cout << "Gecersiz giris, tekrar deneyin...\n";
+			input_valid = false;
+		}
+	}
+
+
+
+
+	return BEST_TEAM_OPTIONS::BEST_RESULTS;
+}
+
 
 LEAGUE_OPTIONS getLeagueOption() {
 

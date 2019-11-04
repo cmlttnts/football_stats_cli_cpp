@@ -11,12 +11,6 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 	string buffer;
 	//comments are after dots
 	string comment_str = ".";
-	//league names
-	string tr_str = "tr";
-	string sp_str = "sp";
-	string ita_str = "ita";
-	string eng_str = "eng";
-	string ger_str = "ger";
 	bool match_found = false;
 	Match a_match;
 	if (file.is_open()) {

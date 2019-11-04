@@ -57,13 +57,14 @@ int main(){
 					}
 					break;
 				case TEAM_OPTIONS::BEST_TEAM:
-					std::cout << "Cok Yakinda Geliyor...\n";
+					getBestTeamOption();
+					//std::cout << "Cok Yakinda Geliyor...\n";
 					go_back_to_team = true;
 					break;
 				case TEAM_OPTIONS::GO_BACK:
 					go_back_to_init = true;
 					break;
-				case TEAM_OPTIONS::EXIT_OPTION:
+				case TEAM_OPTIONS::EXIT:
 					exited = true;
 					break;
 				default:
@@ -78,7 +79,7 @@ int main(){
 		case INIT_OPTIONS::TEAM_NAMES_OPTION:
 			printTeamsPerLeague(team_file_names);
 			break;
-		case INIT_OPTIONS::EXIT_OPTION:
+		case INIT_OPTIONS::EXIT:
 			exited = true;
 		default:
 			break;
