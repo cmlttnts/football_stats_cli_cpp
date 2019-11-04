@@ -53,3 +53,15 @@ TODO: Ligleri maç özelliklerine göre analiz etme
 		-3.5 üstü bitme oranı
 		-1y 1.5 altı bitme oranı
 		-1y 1.5 üstü bitme oranı
+
+while(!exited){
+	first = getInitOption();
+	switch(first){
+		case team:
+			while(!exited && !go_back_to_init){
+			}
+			second = getTeamOption();
+
+		case 2:
+	}
+}
