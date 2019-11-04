@@ -1,12 +1,12 @@
 #pragma once
 #include <string>
-enum MatchResult {
+enum class MatchResult {
 HOME_WIN = 1,
 DRAW = 0,
 AWAY_WIN = 2
 };
 
-enum TeamsResult {
+enum class TeamsResult {
 TEAM_WIN = 1,
 TEAM_DRAW = 0,
 TEAM_LOSS = -1

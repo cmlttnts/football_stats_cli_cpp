@@ -42,14 +42,26 @@ int main() {
 		switch (first_opt) {
 			case INIT_OPTIONS::TEAM_OPTION:
 				go_back_to_init = false;
-				while (!exited && go_back_to_init) {
+				while (!exited && !go_back_to_init) {
 					TEAM_OPTIONS team_opt = getTeamOption();
 					switch (team_opt) {
 						case TEAM_OPTIONS::TEAM_ANALYSIS:
 							go_back_to_team = false;
-							while (!exited && go_back_to_team) {
+							while (!exited && !go_back_to_team) {
 								std::string team_name = getTeamNameFromUser();
-								//TODO
+								TEAM_ANALYSIS_OPTIONS result = presentTeam(team_name, match_file_names);
+								switch (result) {
+									case TEAM_ANALYSIS_OPTIONS::TEAM_PICKED:
+										break;
+									case TEAM_ANALYSIS_OPTIONS::GO_BACK:
+										go_back_to_team = true;
+										break;
+									case TEAM_ANALYSIS_OPTIONS::EXIT:
+										exited = true;
+										break;
+									default:
+										break;
+								}
 							}
 							break;
 						case TEAM_OPTIONS::BEST_TEAM:
@@ -91,10 +103,13 @@ int main() {
 				}
 				break;
 			case INIT_OPTIONS::LEAGUE_OPTION:
+				std::cout << "Cok Yakinda ...\n";
 				break;
 			case INIT_OPTIONS::TEAM_NAMES_OPTION:
+				printTeamsPerLeague(team_file_names);
 				break;
 			case INIT_OPTIONS::EXIT:
+				exited = true;
 				break;
 		}
 	}

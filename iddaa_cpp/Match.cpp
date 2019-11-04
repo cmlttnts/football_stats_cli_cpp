@@ -9,9 +9,9 @@ home_total_goals(0),
 away_first_half_goals(0),
 away_second_half_goals(0),
 away_total_goals(0),
-first_half_result(DRAW),
-second_half_result(DRAW),
-final_result(DRAW)
+first_half_result(MatchResult::DRAW),
+second_half_result(MatchResult::DRAW),
+final_result(MatchResult::DRAW)
 {
 }
 
@@ -23,9 +23,9 @@ void Match::prettyPresent() {
 	HANDLE h_cons;
 	h_cons = GetStdHandle(STD_OUTPUT_HANDLE);
 
-	if (picked_team_result == TEAM_WIN)
+	if (picked_team_result == TeamsResult::TEAM_WIN)
 		SetConsoleTextAttribute(h_cons, 2);
-	else if (picked_team_result == TEAM_LOSS)
+	else if (picked_team_result == TeamsResult::TEAM_LOSS)
 		SetConsoleTextAttribute(h_cons, 12);
 	else
 		SetConsoleTextAttribute(h_cons, 7);
@@ -37,7 +37,7 @@ void Match::prettyPresent() {
 	pretty_str += std::to_string(away_second_half_goals) + " = MS: ";
 	pretty_str += std::to_string(home_total_goals) + "-";
 	pretty_str += std::to_string(away_total_goals);
-	pretty_str += " (" + std::to_string(first_half_result) + "/" + std::to_string(final_result) + ")";
+	pretty_str += " (" + std::to_string(static_cast<int>(first_half_result)) + "/" + std::to_string(static_cast<int>(final_result)) + ")";
 	std::cout << pretty_str << " ";
 	
 	if (corner_info_available) {

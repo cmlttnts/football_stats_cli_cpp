@@ -116,11 +116,11 @@ void evaluateFirstHalf(Team& team, Match& match,
 	match.home_first_half_goals = home_fh_score;
 	match.away_first_half_goals = away_fh_score;
 	if (home_fh_score > away_fh_score)
-		match.first_half_result = HOME_WIN;
+		match.first_half_result = MatchResult::HOME_WIN;
 	else if (away_fh_score > home_fh_score)
-		match.first_half_result = AWAY_WIN;
+		match.first_half_result = MatchResult::AWAY_WIN;
 	else
-		match.first_half_result = DRAW;
+		match.first_half_result = MatchResult::DRAW;
 
 	//first half infoes
 	if (home_fh_score + away_fh_score > 1)
@@ -161,21 +161,21 @@ void evaluateSecondHalf(Team& team, Match& match,
 	match.home_total_goals = home_total_score;
 	match.away_total_goals = away_total_score;
 	if (home_total_score > away_total_score)
-		match.final_result = HOME_WIN;
+		match.final_result = MatchResult::HOME_WIN;
 	else if (away_total_score > home_total_score)
-		match.final_result = AWAY_WIN;
+		match.final_result = MatchResult::AWAY_WIN;
 	else {
-		match.final_result = DRAW;
+		match.final_result = MatchResult::DRAW;
 		team.num_of_draws++;
-		match.picked_team_result = TEAM_DRAW;
+		match.picked_team_result = TeamsResult::TEAM_DRAW;
 	}
 
 	if (home_sh_goals > away_sh_goals)
-		match.second_half_result = HOME_WIN;
+		match.second_half_result = MatchResult::HOME_WIN;
 	else if (away_sh_goals > home_sh_goals)
-		match.second_half_result = AWAY_WIN;
+		match.second_half_result = MatchResult::AWAY_WIN;
 	else
-		match.second_half_result = DRAW;
+		match.second_half_result = MatchResult::DRAW;
 	//kg var
 	if (home_total_score > 0 && away_total_score > 0)
 		team.num_of_kg_var_matches++;
@@ -202,11 +202,11 @@ void evaluateSecondHalf(Team& team, Match& match,
 		if (home_total_score > away_total_score) {
 			team.num_of_home_wins++;
 			team.num_of_wins++;
-			match.picked_team_result = TEAM_WIN;
+			match.picked_team_result =TeamsResult::TEAM_WIN;
 		}
 		else if (away_total_score > home_total_score) {
 			team.num_of_losses++;
-			match.picked_team_result = TEAM_LOSS;
+			match.picked_team_result = TeamsResult::TEAM_LOSS;
 		}
 	}
 	else {
@@ -225,11 +225,11 @@ void evaluateSecondHalf(Team& team, Match& match,
 		if (away_total_score > home_total_score) {
 			team.num_of_away_wins++;
 			team.num_of_wins++;
-			match.picked_team_result = TEAM_WIN;
+			match.picked_team_result = TeamsResult::TEAM_WIN;
 		}
 		else if (home_total_score > away_total_score) {
 			team.num_of_losses++;
-			match.picked_team_result = TEAM_LOSS;
+			match.picked_team_result = TeamsResult::TEAM_LOSS;
 		}
 	}
 }

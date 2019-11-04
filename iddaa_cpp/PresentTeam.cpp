@@ -13,11 +13,11 @@ using namespace std;
 using boost::format;
 
 
-int presentTeam(const std::string& team_name, const std::vector<std::filesystem::path>& file_names ) {
+TEAM_ANALYSIS_OPTIONS presentTeam(const std::string& team_name, const std::vector<std::filesystem::path>& file_names ) {
 	if (!team_name.compare("q"))
-		return 1;
+		return TEAM_ANALYSIS_OPTIONS::EXIT;
 	else if (!team_name.compare("g"))
-		return 2;
+		return TEAM_ANALYSIS_OPTIONS::GO_BACK;
 	Team team(team_name);
 	bool failure = true;
 	// Read files to modify team's properties
@@ -34,7 +34,7 @@ int presentTeam(const std::string& team_name, const std::vector<std::filesystem:
 		presentMatchHistory(team);
 		presentTeamInfo(team);
 	}
-	return 0;
+	return TEAM_ANALYSIS_OPTIONS::TEAM_PICKED;
 }
 
 void presentMatchHistory(Team& team) {
@@ -167,4 +167,3 @@ void _presentCorners(const Team& team){
 void searchForBestTeam() {
 
 }
-

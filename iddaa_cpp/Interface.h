@@ -16,6 +16,11 @@ enum class TEAM_OPTIONS {
 	GO_BACK,
 	EXIT
 };
+enum class TEAM_ANALYSIS_OPTIONS {
+	TEAM_PICKED,
+	GO_BACK,
+	EXIT
+};
 
 enum class BEST_TEAM_OPTIONS {
 	BEST_RESULTS,
