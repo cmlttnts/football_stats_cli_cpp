@@ -16,9 +16,7 @@
 
 
 int main() {
-	std::string exit_input = "q";
 	std::string user_input;
-	std::cout << "Press 'q' for exit" << std::endl;
 	std::string weeks_path;
 	std::string teams_path;
 	//temporary variables block
@@ -66,7 +64,7 @@ int main() {
 							break;
 						case TEAM_OPTIONS::BEST_TEAM:
 							go_back_to_team = false;
-							while (!exited && go_back_to_team) {
+							while (!exited && !go_back_to_team) {
 								BEST_TEAM_OPTIONS best_t_opt = getBestTeamOption();
 								switch (best_t_opt) {
 									case BEST_TEAM_OPTIONS::BEST_RESULTS:

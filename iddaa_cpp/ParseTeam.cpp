@@ -2,13 +2,14 @@
 #include <sstream>
 #include "Match.h"
 #include "Team.h"
-
+#include "OneLineInfo.h"
 using namespace std;
 
-int simpleParse(const std::filesystem::path& the_path, Team & team) {
+int searchTeamMatch(const std::filesystem::path& the_path, Team & team) {
 	ifstream file(the_path);
 	string line;
 	string buffer;
+	bool debug_once = true;
 	//comments are after dots
 	string comment_str = ".";
 	bool match_found = false;
@@ -76,6 +77,11 @@ int simpleParse(const std::filesystem::path& the_path, Team & team) {
 					if (s1.empty() || s2.empty())
 						break;
 					match_found = true;
+					//if (debug_once) {
+					//	OneLineData data1 = getDataFromLine(line);
+					//	printOneLineData(data1);
+					//}
+					//debug_once = false;
 					evaluateSecondHalf(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
 					//check if corner info is there
 					getline(stream, s1, ' ');
@@ -274,6 +280,4 @@ void processSecondHalfCorners(Team& team, Match& match,
 		team.num_of_corners += (match.away_fh_corners + match.away_sh_corners);
 		team.num_of_corners_rec += (match.home_fh_corners + match.home_sh_corners);
 	}
-
-
 }

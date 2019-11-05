@@ -54,14 +54,12 @@ TODO: Ligleri maç özelliklerine göre analiz etme
 		-1y 1.5 altı bitme oranı
 		-1y 1.5 üstü bitme oranı
 
-while(!exited){
-	first = getInitOption();
-	switch(first){
-		case team:
-			while(!exited && !go_back_to_init){
-			}
-			second = getTeamOption();
 
-		case 2:
-	}
-}
+
+----------------------------------------------
+vector teams;
+-For(file in files):
+	read match line;
+	if(team_name is not in vector)
+		vector.push_back(Team(team_name));
+		analyzeMatch(team1, team2, fh_score1, fh_score2, ms_result1, ms_result2, fh_corner1, )

@@ -43,9 +43,8 @@ TEAM_OPTIONS getTeamOption() {
 
 	string user_in;
 	bool input_valid = false;
-	while (!input_valid) {
+	while (1) {
 		cin >> user_in;
-		input_valid = true;
 		if (!user_in.compare("1"))
 			return TEAM_OPTIONS::TEAM_ANALYSIS;
 		else if (!user_in.compare("2"))
@@ -56,7 +55,6 @@ TEAM_OPTIONS getTeamOption() {
 			return TEAM_OPTIONS::GO_BACK;
 		else {
 			cout << "Gecersiz giris, tekrar deneyin...\n";
-			input_valid = false;
 		}
 	}
 
@@ -75,7 +73,7 @@ std::string getTeamNameFromUser() {
 }
 
 BEST_TEAM_OPTIONS getBestTeamOption() {
-	//system("cls");
+	system("cls");
 	cout << format("%-30s %s %-4s\n") % "1.2.1)En iyi sonuc alanlar" % ":" % "1";
 	cout << format("%-30s %s %-4s\n") % "1.2.2)En kotu sonuc alanlar" % ":" % "2";
 	cout << format("%-30s %s %-4s\n") % "1.2.3)En cok gol atanlar" % ":" % "3";
@@ -89,10 +87,8 @@ BEST_TEAM_OPTIONS getBestTeamOption() {
 	cout << format("%-30s %s %-4s\n") % "Cikis icin" % ":" % "q";
 
 	std::string user_in;
-	bool input_valid = false;
-	while (!input_valid) {
+	while (1) {
 		cin >> user_in;
-		input_valid = true;
 		if (!user_in.compare("1"))
 			return BEST_TEAM_OPTIONS::BEST_RESULTS;
 		else if (!user_in.compare("2"))
@@ -115,14 +111,8 @@ BEST_TEAM_OPTIONS getBestTeamOption() {
 			return BEST_TEAM_OPTIONS::EXIT;
 		else {
 			cout << "Gecersiz giris, tekrar deneyin...\n";
-			input_valid = false;
 		}
 	}
-
-
-
-
-	return BEST_TEAM_OPTIONS::BEST_RESULTS;
 }
 
 

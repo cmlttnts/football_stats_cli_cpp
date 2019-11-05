@@ -14,4 +14,5 @@ lecce sassuolo 2 1 2 2 c 3 3 3 3
 fiorentina parma 0 1 1 1 c 3 1 2 1
 milan lazio 1 1 1 2 c 6 0 2 4
 . lazio hep atiyor
-spal sampdoria
+spal sampdoria 0 0 0 1 c 5 3 3 2
+. kornerden kazandik, golden yattik, iki takim da les

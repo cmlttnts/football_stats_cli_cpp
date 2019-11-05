@@ -23,7 +23,7 @@ TEAM_ANALYSIS_OPTIONS presentTeam(const std::string& team_name, const std::vecto
 	// Read files to modify team's properties
 	for (const auto& name : file_names) {
 		//if we find at least 1 match we say it is success
-		failure = simpleParse(name, team) && failure;
+		failure = searchTeamMatch(name, team) && failure;
 		//std::cout << name << "\n";
 	}
 	// Preset team's info
