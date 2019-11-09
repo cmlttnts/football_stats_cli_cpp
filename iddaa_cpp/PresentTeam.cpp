@@ -37,15 +37,14 @@ TEAM_ANALYSIS_OPTIONS presentTeam(const std::string& team_name, const std::vecto
 	return TEAM_ANALYSIS_OPTIONS::TEAM_PICKED;
 }
 
-void presentBestTeam(const std::vector<std::filesystem::path>& file_paths, BEST_TEAM_OPTIONS option) {
+void presentBestTeams(const std::vector<std::filesystem::path>& file_paths, BEST_TEAM_OPTIONS option) {
 	//collect all teams
 	std::vector<Team> teams;
-	std::vector<Team> ranked_teams;
 	for (const auto& file_path : file_paths) {
+		//cout << file_path << "\n";
 		gatherAllTeamInfos(file_path, teams);
 	}
-		ranked_teams = rankTeamsByBestOption(teams, option);
-		presentRankedTeams(ranked_teams, option);
+		presentRankedTeams(teams, option);
 }
 
 void presentMatchHistory(Team& team) {
@@ -173,10 +172,62 @@ void _presentCorners(const Team& team){
 	}
 }
 
-std::vector<Team> rankTeamsByBestOption(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
+void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
+	HANDLE h_cons;
+	h_cons = GetStdHandle(STD_OUTPUT_HANDLE);
+	size_t topHowMany = 5;
+	switch (option)
+	{
+	case BEST_TEAM_OPTIONS::BEST_RESULTS:
+		std::sort(teams.begin(), teams.end(), sortByWins);
+		system("cls");
+		setTitleColor();
+		cout << format("%30s %s\n") % "" % "EN COK KAZANANLAR TOP 5";
+		setInfoColor();
+		for (size_t i = 0; i < topHowMany; i++) {
+			cout << format("%u-) %-12s %12s %3u/%3u\n") % (i + 1) % teams[i].name % "Kazandigi/Toplam = " % teams[i].num_of_wins % teams[i].num_of_matches;
+		}
+		cout << "\n\n";
+		break;
+	case BEST_TEAM_OPTIONS::WORST_RESULTS:
+		std::sort(teams.begin(), teams.end(), sortByLosses);
+		system("cls");
+		setTitleColor();
+		cout << format("%30s %s \n") % "" % "EN COK KAYBEDENLER TOP 5";
+		setInfoColor();
+		for (size_t i = 0; i < topHowMany; i++) {
+			cout << format("%u-) %-12s %12s %3u/%3u\n") % (i + 1) % teams[i].name % "Kaybettigi/Toplam = " % teams[i].num_of_losses % teams[i].num_of_matches;
+		}
+		cout << "\n\n";
 
-}
-
-void presentRankedTeams(std::vector<Team>& ranked_teams, BEST_TEAM_OPTIONS option) {
+		break;
+	case BEST_TEAM_OPTIONS::MOST_GOALS_SCORED:
+		break;
+	case BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED:
+		break;
+	case BEST_TEAM_OPTIONS::MOST_GOALS_RECEIVED:
+		break;
+	case BEST_TEAM_OPTIONS::LEAST_GOALS_RECEIVED:
+		break;
+	case BEST_TEAM_OPTIONS::COMEBAKCS:
+		break;
+	case BEST_TEAM_OPTIONS::CORNERS:
+		std::sort(teams.begin(), teams.end(), sortByTotalCorners);
+		system("cls");
+		setTitleColor();
+		cout << format("%30s %s \n") % "" % "MACLARINDA ORTALAMA EN COK KORNER OLANLAR";
+		setInfoColor();
+		for (size_t i = 0; i < topHowMany; i++) {
+			cout << format("%u-) %-12s %12s %3u/%3u\n") % (i + 1) % teams[i].name % "Ortalama (Mac Sayisi) = " % (float((teams[i].num_of_corners+teams[i].num_of_corners_rec))/teams[i].num_of_corner_info_match) % teams[i].num_of_corner_info_match;
+		}
+		cout << "\n\n";
+		break;
+	case BEST_TEAM_OPTIONS::GO_BACK:
+		break;
+	case BEST_TEAM_OPTIONS::EXIT:
+		break;
+	default:
+		break;
+	}
 
 }

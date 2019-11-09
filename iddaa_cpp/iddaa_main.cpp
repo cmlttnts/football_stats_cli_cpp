@@ -67,27 +67,14 @@ int main() {
 							while (!exited && !go_back_to_team) {
 								BEST_TEAM_OPTIONS best_t_opt = getBestTeamOption();
 								switch (best_t_opt) {
-									case BEST_TEAM_OPTIONS::BEST_RESULTS:
-										break;
-									case BEST_TEAM_OPTIONS::WORST_RESULTS:
-										break;
-									case BEST_TEAM_OPTIONS::MOST_GOALS_SCORED:
-										break;
-									case BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED:
-										break;
-									case BEST_TEAM_OPTIONS::MOST_GOALS_RECEIVED:
-										break;
-									case BEST_TEAM_OPTIONS::LEAST_GOALS_RECEIVED:
-										break;
-									case BEST_TEAM_OPTIONS::COMEBAKCS:
-										break;
-									case BEST_TEAM_OPTIONS::CORNERS:
-										break;
 									case BEST_TEAM_OPTIONS::GO_BACK:
 										go_back_to_team = true;
 										break;
 									case BEST_TEAM_OPTIONS::EXIT:
 										exited = true;
+										break;
+									default:
+										presentBestTeams(match_file_names, best_t_opt);
 										break;
 								}
 							}

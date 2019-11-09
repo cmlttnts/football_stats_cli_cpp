@@ -293,43 +293,72 @@ void gatherAllTeamInfos(const std::filesystem::path& the_path, std::vector<Team>
 		while (getline(file, line)) {
 			if (first_line) {
 				first_line = false;
-				break;
 			}
 			else if (line[0] == '.')
-				break;
+				first_line = false;
 			else {
 				OneLineData data;
+				//std::cout << "line:" << line << "\n";
 				data = getDataFromLine(line);
 				updateTeamsInfo(teams, data);
 			}
 		}
 	}
+	else {
+		std::cout << "File cannot be opened\n";
+	}
 }
 
-void updateTeamsInfo(std::vector<Team>& teams, const OneLineData& data) {
-	Team away_team;
+int updateTeamsInfo(std::vector<Team>& teams, const OneLineData& data) {
+	if (!data.score_info_available)
+		return 1;
 	Match dummy_match;
+	bool home_team_found = false;
+	bool away_team_found = false;
 	for (auto& team : teams) {
 		//check if team created before
-		if (!data.home_name.compare(team.name)) {
+		if (!home_team_found && !data.home_name.compare(team.name)) {
+			home_team_found = true;
+			evaluateFirstHalf(team, dummy_match, data.home_fh_score, data.away_fh_score, true);
+			evaluateSecondHalf(team, dummy_match, data.home_final_score, data.away_final_score, true);
+			if (data.corner_info_availabe) {
+				processFirstHalfCorners(team, dummy_match, data.home_fh_corners, data.away_fh_corners, true);
+				processSecondHalfCorners(team, dummy_match, data.home_sh_corners, data.away_sh_corners, true);
+			}
 
-
-
-			//TODO: BURADAN DEVAM
-
-
-
-
-			if (data.score_info_available) {
-				evaluateFirstHalf(team, dummy_match, data.home_fh_score, data.away_fh_score, true);
-				evaluateSecondHalf(team, dummy_match, data.home_final_score, data.away_final_score, true);
-				if (data.corner_info_availabe) {
-					processFirstHalfCorners(team, dummy_match, data.home_fh_corners, data.away_fh_corners, true);
-					processSecondHalfCorners(team, dummy_match, data.home_sh_corners, data.away_sh_corners, true);
-				}
+		}
+		if (!away_team_found && !data.away_name.compare(team.name)) {
+			away_team_found = true;
+			evaluateFirstHalf(team, dummy_match, data.home_fh_score, data.away_fh_score, false);
+			evaluateSecondHalf(team, dummy_match, data.home_final_score, data.away_final_score, false);
+			if (data.corner_info_availabe) {
+				processFirstHalfCorners(team, dummy_match, data.home_fh_corners, data.away_fh_corners, false);
+				processSecondHalfCorners(team, dummy_match, data.home_sh_corners, data.away_sh_corners, false);
 			}
 		}
 	}
+
+	if (!home_team_found) {
+		Team home_team(data.home_name);
+		evaluateFirstHalf(home_team, dummy_match, data.home_fh_score, data.away_fh_score, true);
+		evaluateSecondHalf(home_team, dummy_match, data.home_final_score, data.away_final_score, true);
+		if (data.corner_info_availabe) {
+			processFirstHalfCorners(home_team, dummy_match, data.home_fh_corners, data.away_fh_corners, true);
+			processSecondHalfCorners(home_team, dummy_match, data.home_sh_corners, data.away_sh_corners, true);
+		}
+		teams.push_back(home_team);
+	}
+	if (!away_team_found) {
+		Team away_team(data.away_name);
+		evaluateFirstHalf(away_team, dummy_match, data.home_fh_score, data.away_fh_score, false);
+		evaluateSecondHalf(away_team, dummy_match, data.home_final_score, data.away_final_score, false);
+		if (data.corner_info_availabe) {
+			processFirstHalfCorners(away_team, dummy_match, data.home_fh_corners, data.away_fh_corners, false);
+			processSecondHalfCorners(away_team, dummy_match, data.home_sh_corners, data.away_sh_corners, false);
+		}
+		teams.push_back(away_team);
+	}
+	return 0;
 }
 
 

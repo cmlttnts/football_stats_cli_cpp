@@ -41,7 +41,56 @@ bool sortMatchesByDate(const Match& m1, const Match& m2) {
 		return false;
 }
 
-
-bool sortByAlphabethical() {
-
+bool sortByWins(const Team& team1, const Team& team2) {
+	if (team1.num_of_wins > team2.num_of_wins)
+		return true;
+	else
+		return false;
 }
+
+bool sortByLosses(const Team& team1, const Team& team2) {
+	if (team1.num_of_losses > team2.num_of_losses)
+		return true;
+	else
+		return false;
+}
+
+bool sortByFHWins(const Team& team1, const Team& team2) {
+	if (team1.num_of_first_half_wins > team2.num_of_first_half_wins)
+		return true;
+	else
+		return false;
+}
+
+bool sortByFHLosses(const Team& team1, const Team& team2) {
+	if (team1.num_of_first_half_losses > team2.num_of_first_half_losses)
+		return true;
+	else
+		return false;
+}
+
+bool sortBySHWins(const Team& team1, const Team& team2) {
+	if (team1.num_of_second_half_wins > team2.num_of_second_half_wins)
+		return true;
+	else
+		return false;
+}
+
+bool sortBySHLosses(const Team& team1, const Team& team2) {
+	if (team1.num_of_second_half_losses > team2.num_of_second_half_losses)
+		return true;
+	else
+		return false;
+}
+
+bool sortByTotalCorners(const Team& team1, const Team& team2) {
+	if (team1.num_of_corner_info_match < 1)
+		return false;
+	if (team2.num_of_corner_info_match < 1)
+		return true;
+	if (((team1.num_of_corners + team1.num_of_corners_rec)/ (float)team1.num_of_corner_info_match)  > ((team2.num_of_corners + team2.num_of_corners_rec)/ (float)team2.num_of_corner_info_match)) 
+		return true;
+	else
+		return false;
+}
+
