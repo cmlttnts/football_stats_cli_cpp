@@ -73,7 +73,7 @@ std::string getTeamNameFromUser() {
 }
 
 BEST_TEAM_OPTIONS getBestTeamOption() {
-	system("cls");
+	//system("cls");
 	cout << format("%-30s %s %-4s\n") % "1.2.1)En iyi sonuc alanlar" % ":" % "1";
 	cout << format("%-30s %s %-4s\n") % "1.2.2)En kotu sonuc alanlar" % ":" % "2";
 	cout << format("%-30s %s %-4s\n") % "1.2.3)En cok gol atanlar" % ":" % "3";

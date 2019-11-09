@@ -1,5 +1,5 @@
 Date 8.11.2019
-sociedad leganes
+sociedad leganes 0 0 1 1 c 3 0 2 1
 alaves valladolid
 valencia granada
 eibar rmadrid

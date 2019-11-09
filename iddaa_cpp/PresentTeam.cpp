@@ -37,6 +37,17 @@ TEAM_ANALYSIS_OPTIONS presentTeam(const std::string& team_name, const std::vecto
 	return TEAM_ANALYSIS_OPTIONS::TEAM_PICKED;
 }
 
+void presentBestTeam(const std::vector<std::filesystem::path>& file_paths, BEST_TEAM_OPTIONS option) {
+	//collect all teams
+	std::vector<Team> teams;
+	std::vector<Team> ranked_teams;
+	for (const auto& file_path : file_paths) {
+		gatherAllTeamInfos(file_path, teams);
+	}
+		ranked_teams = rankTeamsByBestOption(teams, option);
+		presentRankedTeams(ranked_teams, option);
+}
+
 void presentMatchHistory(Team& team) {
 	int n = 1;
 	std::sort(team.matches.begin(), team.matches.end(), sortMatchesByDate);
@@ -162,8 +173,10 @@ void _presentCorners(const Team& team){
 	}
 }
 
+std::vector<Team> rankTeamsByBestOption(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 
-//TODO:
-void searchForBestTeam() {
+}
+
+void presentRankedTeams(std::vector<Team>& ranked_teams, BEST_TEAM_OPTIONS option) {
 
 }

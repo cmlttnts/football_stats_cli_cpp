@@ -3,8 +3,9 @@
 #include "Match.h"
 #include "Team.h"
 #include "OneLineInfo.h"
+#include "Interface.h"
 using namespace std;
-
+//TODO: redesign with OneLineData
 int searchTeamMatch(const std::filesystem::path& the_path, Team & team) {
 	ifstream file(the_path);
 	string line;
@@ -114,10 +115,11 @@ int searchTeamMatch(const std::filesystem::path& the_path, Team & team) {
 		team.matches.push_back(a_match);
 	return !match_found;
 }
+
 void evaluateFirstHalf(Team& team, Match& match,
-	unsigned int home_fh_score,
-	unsigned int away_fh_score,
-	bool is_team_home) {
+						unsigned int home_fh_score,
+						unsigned int away_fh_score,
+						bool is_team_home) {
 	//MODIFY MATCH INFO
 	match.home_first_half_goals = home_fh_score;
 	match.away_first_half_goals = away_fh_score;
@@ -153,9 +155,9 @@ void evaluateFirstHalf(Team& team, Match& match,
 
 }
 void evaluateSecondHalf(Team& team, Match& match,
-	unsigned int home_total_score,
-	unsigned int away_total_score,
-	bool is_team_home) {
+						unsigned int home_total_score,
+						unsigned int away_total_score,
+						bool is_team_home) {
 	team.num_of_matches++;
 	// to find second half goals, remove first half from total score
 	unsigned int home_sh_goals = home_total_score - match.home_first_half_goals;
@@ -240,9 +242,9 @@ void evaluateSecondHalf(Team& team, Match& match,
 	}
 }
 void processFirstHalfCorners(Team& team, Match& match,
-					unsigned int home_fh_corners,
-					unsigned int away_fh_corners,
-					bool team_is_home) {
+							unsigned int home_fh_corners,
+							unsigned int away_fh_corners,
+							bool team_is_home) {
 
 	match.home_fh_corners = home_fh_corners;
 	match.away_fh_corners = away_fh_corners;
@@ -281,3 +283,53 @@ void processSecondHalfCorners(Team& team, Match& match,
 		team.num_of_corners_rec += (match.home_fh_corners + match.home_sh_corners);
 	}
 }
+
+
+void gatherAllTeamInfos(const std::filesystem::path& the_path, std::vector<Team>& teams) {
+	ifstream file(the_path);
+	string line;
+	if (file.is_open()) {
+		bool first_line = true;
+		while (getline(file, line)) {
+			if (first_line) {
+				first_line = false;
+				break;
+			}
+			else if (line[0] == '.')
+				break;
+			else {
+				OneLineData data;
+				data = getDataFromLine(line);
+				updateTeamsInfo(teams, data);
+			}
+		}
+	}
+}
+
+void updateTeamsInfo(std::vector<Team>& teams, const OneLineData& data) {
+	Team away_team;
+	Match dummy_match;
+	for (auto& team : teams) {
+		//check if team created before
+		if (!data.home_name.compare(team.name)) {
+
+
+
+			//TODO: BURADAN DEVAM
+
+
+
+
+			if (data.score_info_available) {
+				evaluateFirstHalf(team, dummy_match, data.home_fh_score, data.away_fh_score, true);
+				evaluateSecondHalf(team, dummy_match, data.home_final_score, data.away_final_score, true);
+				if (data.corner_info_availabe) {
+					processFirstHalfCorners(team, dummy_match, data.home_fh_corners, data.away_fh_corners, true);
+					processSecondHalfCorners(team, dummy_match, data.home_sh_corners, data.away_sh_corners, true);
+				}
+			}
+		}
+	}
+}
+
+
