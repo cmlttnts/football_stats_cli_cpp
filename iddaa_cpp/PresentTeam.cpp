@@ -63,12 +63,13 @@ void presentTeamInfo(const Team& team) {
 }
 
 #define WHITE_COL 7
-#define CYAN_COL 11
-#define READ_COL 12
 #define BLUE_COL 9
-
+#define CYAN_COL 11
+#define RED_COL 12
+#define YELLOW_COL 14
 #define setTitleColor() SetConsoleTextAttribute(h_cons, CYAN_COL)
 #define setInfoColor() SetConsoleTextAttribute(h_cons, WHITE_COL)
+#define setCommentColor() SetConsoleTextAttribute(h_cons, YELLOW_COL)
 
 void _presentWinsAndLosses(const Team& team) {
 	HANDLE h_cons;
@@ -187,7 +188,13 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam =", teams[i].num_of_first_half_wins, teams[i].num_of_matches);
 		}
 		cout << "\n";
-
+		// SECOND HALF WINS
+		std::sort(teams.begin(), teams.end(), sortBySHWins);
+		presentRankTitle("2Y EN COK KAZANANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam =", teams[i].num_of_second_half_wins, teams[i].num_of_matches);
+		}
+		cout << "\n";
 
 		break;
 	case BEST_TEAM_OPTIONS::WORST_RESULTS:
@@ -197,13 +204,55 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam =", teams[i].num_of_losses, teams[i].num_of_matches);
 		}
 		cout << "\n";
-
+		std::sort(teams.begin(), teams.end(), sortByFHLosses);
+		presentRankTitle("1Y EN COK KAYBEDENLER TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam =", teams[i].num_of_first_half_losses, teams[i].num_of_matches);
+		}
+		cout << "\n";
+		//second half losses
+		std::sort(teams.begin(), teams.end(), sortBySHLosses);
+		presentRankTitle("2Y EN COK KAYBEDENLER TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam =", teams[i].num_of_second_half_losses, teams[i].num_of_matches);
+		}
+		cout << "\n";
 		break;
 	case BEST_TEAM_OPTIONS::MOST_GOALS_SCORED:
+		std::sort(teams.begin(), teams.end(), sortByMostGoalsScored);
+		presentRankTitle("EN COK GOL ATANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float avrg = teams[i].num_of_goals / float(teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+		}
+		cout << "\n";
+
+		std::sort(teams.begin(), teams.end(), sortByMostGoalsFH);
+		presentRankTitle("1Y EN COK GOL ATANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float avrg = teams[i].num_of_first_half_goals / float(teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+		}
+		cout << "\n";
+		std::sort(teams.begin(), teams.end(), sortByMostGoalsSH);
+		presentRankTitle("2Y EN COK GOL ATANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float avrg = teams[i].num_of_second_half_goals / float(teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+		}
+		cout << "\n";
+
 		break;
 	case BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED:
 		break;
 	case BEST_TEAM_OPTIONS::MOST_GOALS_RECEIVED:
+		std::sort(teams.begin(), teams.end(), sortByMostGoalsRec);
+		presentRankTitle("EN COK GOL YIYENLER TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float avrg = teams[i].num_of_rec_goals / float(teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+		}
+		cout << "\n";
 		break;
 	case BEST_TEAM_OPTIONS::LEAST_GOALS_RECEIVED:
 		break;

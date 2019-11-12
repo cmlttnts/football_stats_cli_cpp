@@ -50,8 +50,12 @@ void Match::prettyPresent() {
 
 
 
-	if(comment.compare(""))
-		std::cout << "macin yorumu: " << comment << "\n\n";
+	if (comment.compare("")) {
+		SetConsoleTextAttribute(h_cons, 14);
+		std::cout << "Yorum: " << comment << "\n\n";
+	}
+	SetConsoleTextAttribute(h_cons, 7);
+
 }
 
 

@@ -5,114 +5,81 @@
 #include "OneLineInfo.h"
 #include "Interface.h"
 using namespace std;
-//TODO: redesign with OneLineData
 int searchTeamMatch(const std::filesystem::path& the_path, Team & team) {
 	ifstream file(the_path);
-	string line;
-	string buffer;
-	//comments are after dots
-	string comment_str = ".";
-	bool match_found = false;
-	Match a_match;
 	if (file.is_open()) {
+		string line;
+		bool match_found = false;
+		Match a_match;
 		//lines are read line by line
 		int next_line = 2;
 		bool first_line = true;
 		bool parse_finished = false;
 		bool team_home = true;
 		while (getline(file, line) && !parse_finished){
-			istringstream stream(line);
-			// divide line by empty spaces
-			while (getline(stream, buffer, ' ')){
-				if (match_found && next_line > 1) {
+			if (match_found && next_line > 1) {
+				parse_finished = true;
+				break;
+			}
+			//first line always dates
+			else if (first_line) {
+				a_match.date = line.substr(5);
+				first_line = false;
+			}
+			//if it starts with "." it is comment
+			else if (line[0] == '.'){
+				if (next_line == 1) {
+					a_match.comment = line.substr(2);
 					parse_finished = true;
 					break;
 				}
-				//first line always dates
-				else if (first_line) {
-					getline(stream, buffer);
-					a_match.date = buffer;
-					first_line = false;
-					break;
-				}
-				//if it starts with "." it is comment
-				else if (next_line == 1 && !buffer.compare(comment_str)){
-					getline(stream, buffer);
-					a_match.comment = buffer;
-					parse_finished = true;
-				}
-				// Actual match info
-				else{
-					//first word if not input team
-					if (buffer.compare(team.name)){
-						//get second name
-						std::string temp = buffer;
-						getline(stream, buffer, ' ');
-						if (buffer.compare(team.name)){
-							break;
-						}
-						else {
-							a_match.home_name = temp;
-							a_match.away_name = buffer;
-							team_home = false;
-						}
+			}
+			// Actual match info
+			else{
+				OneLineData data = getDataFromLine(line);
+				//if score not availabe no need to do anything
+				if(!data.score_info_available)
+					continue;
+				if (data.home_name.compare(team.name)){
+					//get second name
+					if (data.away_name.compare(team.name)){
+						//if both not our team's name, jump and parse next line
+						continue;
 					}
 					else {
-						a_match.home_name = buffer;
-						getline(stream, buffer, ' ');
-						a_match.away_name = buffer;
-						team_home = true;
+						a_match.home_name = data.home_name;
+						a_match.away_name = data.away_name;
+						team_home = false;
 					}
-					std::string s1;
-					std::string s2;
-					//get first half result
-					getline(stream, s1, ' ');
-					getline(stream, s2, ' ');
-					if (s1.empty() || s2.empty())
-						break;
-					evaluateFirstHalf(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
-					//get match result
-					getline(stream, s1, ' ');
-					getline(stream, s2, ' ');
-					if (s1.empty() || s2.empty())
-						break;
-					match_found = true;
-					//if (debug_once) {
-					//	OneLineData data1 = getDataFromLine(line);
-					//	printOneLineData(data1);
-					//}
-					//debug_once = false;
-					evaluateSecondHalf(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
-					//check if corner info is there
-					getline(stream, s1, ' ');
-					std::string corner_info_exists = "c";
-					if (!s1.compare(corner_info_exists)) {
-						//cout << "corner info exists\n";
-						//get corner values
-						getline(stream, s1, ' ');
-						getline(stream, s2, ' ');
-						processFirstHalfCorners(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
-						getline(stream, s1, ' ');
-						getline(stream, s2, ' ');
-						processSecondHalfCorners(team, a_match, std::stoi(s1), std::stoi(s2), team_home);
-					}
-					//cout << line << "line printing \n";
-					next_line = 0;
-				
 				}
+				else {
+					a_match.home_name = data.home_name;
+					a_match.away_name = data.away_name;
+					team_home = true;
+				}
+				match_found = true;
+				evaluateFirstHalf(team, a_match, data.home_fh_score, data.away_fh_score, team_home);
+				evaluateSecondHalf(team, a_match, data.home_final_score, data.away_final_score, team_home);
+
+				if (data.corner_info_availabe) {
+					processFirstHalfCorners(team, a_match, data.home_fh_corners, data.away_fh_corners, team_home);
+					processSecondHalfCorners(team, a_match, data.home_sh_corners, data.away_sh_corners, team_home);
+				}
+				next_line = 0;
+				
 			}
 			//increment line count, if match found it resets 0 to check for comment if exists
 			next_line++;
 		}
 		file.close();
+		if (match_found) {
+			team.matches.push_back(a_match);
+			return 0; // success
+		}
 	}
-	else {
+	else
 		cout << "File did not open!\n";
-		return 1;
-	}
-	if (match_found)
-		team.matches.push_back(a_match);
-	return !match_found;
+	return 1; // failure
 }
 
 void evaluateFirstHalf(Team& team, Match& match,

@@ -11,4 +11,9 @@ bool sortByFHLosses(const Team& team1, const Team& team2);
 bool sortBySHWins(const Team& team1, const Team& team2);
 bool sortBySHLosses(const Team& team1, const Team& team2);
 bool sortByTotalCorners(const Team&, const Team& team2);
+
+bool sortByMostGoalsScored(const Team& team1, const Team& team2);
+bool sortByMostGoalsRec(const Team& team1, const Team& team2);
+bool sortByMostGoalsFH(const Team& team1, const Team& team2);
+bool sortByMostGoalsSH(const Team& team1, const Team& team2);
 void rankTeamsByOption(std::vector<Team>&, BEST_TEAM_OPTIONS);
