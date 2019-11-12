@@ -45,6 +45,9 @@ public:
 	unsigned int num_of_corners = 0;
 	unsigned int num_of_corners_rec = 0;
 
+	unsigned int num_of_comebacks = 0; //geriden gelme
+	unsigned int num_of_gobacks = 0; // one gecip geriye dusme
+
 	Team();
 	Team(std::string);
 };

@@ -41,33 +41,6 @@ bool sortMatchesByDate(const Match& m1, const Match& m2) {
 		return false;
 }
 
-void rankTeamsByOption(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
-	switch (option)
-	{
-	case BEST_TEAM_OPTIONS::BEST_RESULTS:
-		break;
-	case BEST_TEAM_OPTIONS::WORST_RESULTS:
-		break;
-	case BEST_TEAM_OPTIONS::MOST_GOALS_SCORED:
-		break;
-	case BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED:
-		break;
-	case BEST_TEAM_OPTIONS::MOST_GOALS_RECEIVED:
-		break;
-	case BEST_TEAM_OPTIONS::LEAST_GOALS_RECEIVED:
-		break;
-	case BEST_TEAM_OPTIONS::COMEBAKCS:
-		break;
-	case BEST_TEAM_OPTIONS::CORNERS:
-		break;
-	case BEST_TEAM_OPTIONS::GO_BACK:
-		break;
-	case BEST_TEAM_OPTIONS::EXIT:
-		break;
-	default:
-		break;
-	}
-}
 
 bool sortByWins(const Team& team1, const Team& team2) {
 	if (team1.num_of_wins > team2.num_of_wins)
@@ -111,7 +84,7 @@ bool sortBySHLosses(const Team& team1, const Team& team2) {
 		return false;
 }
 
-// GOALS
+// GOALS SCORED
 bool sortByMostGoalsScored(const Team& team1, const Team& team2) {
 	float team1_avrg = team1.num_of_goals / float(team1.num_of_matches);
 	float team2_avrg = team2.num_of_goals / float(team2.num_of_matches);
@@ -121,14 +94,6 @@ bool sortByMostGoalsScored(const Team& team1, const Team& team2) {
 		return false;
 }
 
-bool sortByMostGoalsRec(const Team& team1, const Team& team2) {
-	float team1_avrg = team1.num_of_rec_goals / float(team1.num_of_matches);
-	float team2_avrg = team2.num_of_rec_goals / float(team2.num_of_matches);
-	if (team1_avrg > team2_avrg)
-		return true;
-	else
-		return false;
-}
 
 bool sortByMostGoalsFH(const Team& team1, const Team& team2) {
 	float team1_avrg = team1.num_of_first_half_goals / float(team1.num_of_matches);
@@ -143,6 +108,38 @@ bool sortByMostGoalsSH(const Team& team1, const Team& team2) {
 	float team1_avrg = team1.num_of_second_half_goals / float(team1.num_of_matches);
 	float team2_avrg = team2.num_of_second_half_goals / float(team2.num_of_matches);
 	if (team1_avrg > team2_avrg)
+		return true;
+	else
+		return false;
+}
+// GOALS RECEIVED
+bool sortByMostGoalsRec(const Team& team1, const Team& team2) {
+	float team1_avrg = team1.num_of_rec_goals / float(team1.num_of_matches);
+	float team2_avrg = team2.num_of_rec_goals / float(team2.num_of_matches);
+	if (team1_avrg > team2_avrg)
+		return true;
+	else
+		return false;
+}
+
+
+
+// COMEBACKS
+bool sortByComebacksAndGobacks(const Team& team1, const Team& team2) {
+	if ((team1.num_of_comebacks + team1.num_of_gobacks) > (team2.num_of_comebacks+ team2.num_of_gobacks))
+		return true;
+	else
+		return false;
+}
+bool sortByComebacks(const Team& team1, const Team& team2) {
+	if (team1.num_of_comebacks > team2.num_of_comebacks)
+		return true;
+	else
+		return false;
+}
+
+bool sortByGobacks(const Team& team1, const Team& team2) {
+	if (team1.num_of_gobacks > team2.num_of_gobacks)
 		return true;
 	else
 		return false;

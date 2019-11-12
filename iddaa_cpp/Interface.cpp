@@ -100,9 +100,9 @@ BEST_TEAM_OPTIONS getBestTeamOption() {
 		else if (!user_in.compare("5"))
 			return BEST_TEAM_OPTIONS::MOST_GOALS_RECEIVED;
 		else if (!user_in.compare("6"))
-			return BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED;
+			return BEST_TEAM_OPTIONS::LEAST_GOALS_RECEIVED;
 		else if (!user_in.compare("7"))
-			return BEST_TEAM_OPTIONS::COMEBAKCS;
+			return BEST_TEAM_OPTIONS::COMEBACKS;
 		else if (!user_in.compare("8"))
 			return BEST_TEAM_OPTIONS::CORNERS;
 		else if (!user_in.compare("g"))

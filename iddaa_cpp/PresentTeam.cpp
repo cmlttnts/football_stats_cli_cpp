@@ -244,6 +244,14 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 
 		break;
 	case BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED:
+		std::sort(teams.begin(), teams.end(), sortByMostGoalsScored);
+		std::reverse(teams.begin(), teams.end());
+		presentRankTitle("EN AZ GOL ATANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float avrg = teams[i].num_of_goals / float(teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+		}
+		cout << "\n";
 		break;
 	case BEST_TEAM_OPTIONS::MOST_GOALS_RECEIVED:
 		std::sort(teams.begin(), teams.end(), sortByMostGoalsRec);
@@ -255,8 +263,37 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		cout << "\n";
 		break;
 	case BEST_TEAM_OPTIONS::LEAST_GOALS_RECEIVED:
+		std::sort(teams.begin(), teams.end(), sortByMostGoalsRec);
+		std::reverse(teams.begin(), teams.end());
+		presentRankTitle("EN AZ GOL YIYENLER TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float avrg = teams[i].num_of_rec_goals / float(teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+		}
+		cout << "\n";
 		break;
-	case BEST_TEAM_OPTIONS::COMEBAKCS:
+	case BEST_TEAM_OPTIONS::COMEBACKS:
+		std::sort(teams.begin(), teams.end(), sortByComebacksAndGobacks);
+		presentRankTitle("MACLARINDA EN COK GERI DONUS OLANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float total = teams[i].num_of_comebacks + teams[i].num_of_gobacks;
+			presentRankN(i + 1, teams[i].name, "Surpriz Mac / Toplam Mac=", total, teams[i].num_of_matches);
+		}
+		cout << "\n";
+		std::sort(teams.begin(), teams.end(), sortByComebacks);
+		presentRankTitle("MACLARINDA EN COK GERI DONUS YAPANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float total = teams[i].num_of_comebacks;
+			presentRankN(i + 1, teams[i].name, "Surpriz Mac / Toplam Mac=", total, teams[i].num_of_matches);
+		}
+		cout << "\n";
+		std::sort(teams.begin(), teams.end(), sortByGobacks);
+		presentRankTitle("MACLARINDA EN COK RAKIBIN GERI DONUS YAPTIGI TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float total = teams[i].num_of_gobacks;
+			presentRankN(i + 1, teams[i].name, "Surpriz Mac / Toplam Mac=", total, teams[i].num_of_matches);
+		}
+		cout << "\n";
 		break;
 	case BEST_TEAM_OPTIONS::CORNERS:
 		std::sort(teams.begin(), teams.end(), sortByTotalCorners);

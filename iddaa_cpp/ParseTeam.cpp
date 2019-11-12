@@ -182,6 +182,13 @@ void evaluateSecondHalf(Team& team, Match& match,
 			team.num_of_losses++;
 			match.picked_team_result = TeamsResult::TEAM_LOSS;
 		}
+		//COMEBACKS
+		if (match.first_half_result == MatchResult::HOME_WIN && (match.final_result == MatchResult::DRAW || match.final_result == MatchResult::AWAY_WIN))
+			team.num_of_gobacks++;
+		if (match.first_half_result == MatchResult::AWAY_WIN && (match.final_result == MatchResult::DRAW || match.final_result == MatchResult::HOME_WIN))
+			team.num_of_comebacks++;
+
+
 	}
 	else {
 		//second half infoes
@@ -205,6 +212,11 @@ void evaluateSecondHalf(Team& team, Match& match,
 			team.num_of_losses++;
 			match.picked_team_result = TeamsResult::TEAM_LOSS;
 		}
+		//COMEBACKS
+		if (match.first_half_result == MatchResult::HOME_WIN && (match.final_result == MatchResult::DRAW || match.final_result == MatchResult::AWAY_WIN))
+			team.num_of_comebacks++;
+		if (match.first_half_result == MatchResult::AWAY_WIN && (match.final_result == MatchResult::DRAW || match.final_result == MatchResult::HOME_WIN))
+			team.num_of_gobacks++;
 	}
 }
 void processFirstHalfCorners(Team& team, Match& match,
