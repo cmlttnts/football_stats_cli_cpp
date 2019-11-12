@@ -6,9 +6,9 @@
 #include <algorithm>
 
 #define BET_MATCH_DELAY 500
-#define INIT_DELAY 2000
-#define BET_PRES_DELAY 1500
-#define BET_CHAPTER_DELAY 1000
+#define INIT_DELAY 500
+#define BET_PRES_DELAY 500
+#define BET_CHAPTER_DELAY 500
 using namespace std;
 using boost::format;
 
@@ -37,14 +37,8 @@ TEAM_ANALYSIS_OPTIONS presentTeam(const std::string& team_name, const std::vecto
 	return TEAM_ANALYSIS_OPTIONS::TEAM_PICKED;
 }
 
-void presentBestTeams(const std::vector<std::filesystem::path>& file_paths, BEST_TEAM_OPTIONS option) {
-	//collect all teams
-	std::vector<Team> teams;
-	for (const auto& file_path : file_paths) {
-		//cout << file_path << "\n";
-		gatherAllTeamInfos(file_path, teams);
-	}
-		presentRankedTeams(teams, option);
+void presentBestTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
+	presentRankedTeams(teams, option);
 }
 
 void presentMatchHistory(Team& team) {
@@ -173,32 +167,36 @@ void _presentCorners(const Team& team){
 }
 
 void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
-	HANDLE h_cons;
-	h_cons = GetStdHandle(STD_OUTPUT_HANDLE);
-	size_t topHowMany = 5;
+
+	size_t topHowMany = 10;
+	system("cls");
 	switch (option)
 	{
 	case BEST_TEAM_OPTIONS::BEST_RESULTS:
+		// FINAL WINS
 		std::sort(teams.begin(), teams.end(), sortByWins);
-		system("cls");
-		setTitleColor();
-		cout << format("%30s %s\n") % "" % "EN COK KAZANANLAR TOP 5";
-		setInfoColor();
+		presentRankTitle("EN COK KAZANANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			cout << format("%u-) %-12s %12s %3u/%3u\n") % (i + 1) % teams[i].name % "Kazandigi/Toplam = " % teams[i].num_of_wins % teams[i].num_of_matches;
+			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam =", teams[i].num_of_wins, teams[i].num_of_matches);
 		}
-		cout << "\n\n";
+		cout << "\n";
+		// FIRST HALF WINS
+		std::sort(teams.begin(), teams.end(), sortByFHWins);
+		presentRankTitle("1Y EN COK KAZANANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam =", teams[i].num_of_first_half_wins, teams[i].num_of_matches);
+		}
+		cout << "\n";
+
+
 		break;
 	case BEST_TEAM_OPTIONS::WORST_RESULTS:
 		std::sort(teams.begin(), teams.end(), sortByLosses);
-		system("cls");
-		setTitleColor();
-		cout << format("%30s %s \n") % "" % "EN COK KAYBEDENLER TOP 5";
-		setInfoColor();
+		presentRankTitle("EN COK KAYBEDENLER TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			cout << format("%u-) %-12s %12s %3u/%3u\n") % (i + 1) % teams[i].name % "Kaybettigi/Toplam = " % teams[i].num_of_losses % teams[i].num_of_matches;
+			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam =", teams[i].num_of_losses, teams[i].num_of_matches);
 		}
-		cout << "\n\n";
+		cout << "\n";
 
 		break;
 	case BEST_TEAM_OPTIONS::MOST_GOALS_SCORED:
@@ -213,14 +211,15 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		break;
 	case BEST_TEAM_OPTIONS::CORNERS:
 		std::sort(teams.begin(), teams.end(), sortByTotalCorners);
-		system("cls");
-		setTitleColor();
-		cout << format("%30s %s \n") % "" % "MACLARINDA ORTALAMA EN COK KORNER OLANLAR";
-		setInfoColor();
-		for (size_t i = 0; i < topHowMany; i++) {
-			cout << format("%u-) %-12s %12s %3u/%3u\n") % (i + 1) % teams[i].name % "Ortalama (Mac Sayisi) = " % (float((teams[i].num_of_corners+teams[i].num_of_corners_rec))/teams[i].num_of_corner_info_match) % teams[i].num_of_corner_info_match;
+		presentRankTitle("MACLARINDA EN COK KORNER OLANLAR TOP", topHowMany);
+		{
+			float avrg_corner{ 0.f };
+			for (size_t i = 0; i < topHowMany; i++) {
+				avrg_corner = float((teams[i].num_of_corners + teams[i].num_of_corners_rec)) / teams[i].num_of_corner_info_match;
+				presentRankN(i + 1, teams[i].name, "Mac basi / Mac sayisi =", avrg_corner, teams[i].num_of_corner_info_match);
+			}
 		}
-		cout << "\n\n";
+		cout << "\n";
 		break;
 	case BEST_TEAM_OPTIONS::GO_BACK:
 		break;
@@ -230,4 +229,18 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		break;
 	}
 
+}
+
+void presentRankN(size_t rank,
+				std::string name, std::string text,
+				float value, unsigned int total) {
+	cout << format("%3u-) %-12s %12s %3.3f / %u\n") % rank % name % text % value % total;
+}
+
+void presentRankTitle(std::string title, size_t topX) {
+	HANDLE h_cons;
+	h_cons = GetStdHandle(STD_OUTPUT_HANDLE);
+	setTitleColor();
+	cout << format("%30s %s %u\n") % "" % title % topX;
+	setInfoColor();
 }

@@ -35,6 +35,8 @@ int main() {
 	bool go_back_to_init = false;
 	bool go_back_to_team = false;
 	bool go_back_to_league = false;
+	std::vector<Team> all_teams;
+	bool first_time_best_search = true;
 	while (!exited) {
 		INIT_OPTIONS first_opt = getInitOptions();
 		switch (first_opt) {
@@ -74,7 +76,13 @@ int main() {
 										exited = true;
 										break;
 									default:
-										presentBestTeams(match_file_names, best_t_opt);
+										if (first_time_best_search) {
+											all_teams = getAllTeamsStats(match_file_names);
+											presentBestTeams(all_teams, best_t_opt);
+											first_time_best_search = false;
+										}
+										else
+											presentBestTeams(all_teams, best_t_opt);
 										break;
 								}
 							}
@@ -84,6 +92,7 @@ int main() {
 							break;
 						case TEAM_OPTIONS::EXIT:
 							exited = true;
+							break;
 					}
 				}
 				break;

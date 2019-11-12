@@ -10,7 +10,6 @@ int searchTeamMatch(const std::filesystem::path& the_path, Team & team) {
 	ifstream file(the_path);
 	string line;
 	string buffer;
-	bool debug_once = true;
 	//comments are after dots
 	string comment_str = ".";
 	bool match_found = false;
@@ -285,7 +284,22 @@ void processSecondHalfCorners(Team& team, Match& match,
 }
 
 
-void gatherAllTeamInfos(const std::filesystem::path& the_path, std::vector<Team>& teams) {
+std::vector<Team> getAllTeamsStats(const std::vector<std::filesystem::path>& file_paths) {
+	std::vector<Team> teams;
+	//parse each file in files
+	for (const auto& file_path : file_paths) {
+		//cout << file_path << "\n";
+		std::string file_str = file_path.string();
+		//remove cl search, TODO: what if want to seach CL
+		if (file_str.find("cl") != std::string::npos)
+			continue;
+		parseFileForStats(file_path, teams);
+	}
+	//return all teams with statistics
+	return teams;
+}
+
+void parseFileForStats(const std::filesystem::path& the_path, std::vector<Team>& teams) {
 	ifstream file(the_path);
 	string line;
 	if (file.is_open()) {
@@ -300,7 +314,7 @@ void gatherAllTeamInfos(const std::filesystem::path& the_path, std::vector<Team>
 				OneLineData data;
 				//std::cout << "line:" << line << "\n";
 				data = getDataFromLine(line);
-				updateTeamsInfo(teams, data);
+				parseLineForStats(teams, data);
 			}
 		}
 	}
@@ -309,7 +323,7 @@ void gatherAllTeamInfos(const std::filesystem::path& the_path, std::vector<Team>
 	}
 }
 
-int updateTeamsInfo(std::vector<Team>& teams, const OneLineData& data) {
+int parseLineForStats(std::vector<Team>& teams, const OneLineData& data) {
 	if (!data.score_info_available)
 		return 1;
 	Match dummy_match;
@@ -337,7 +351,7 @@ int updateTeamsInfo(std::vector<Team>& teams, const OneLineData& data) {
 			}
 		}
 	}
-
+	// if not found, create new team, add stats, push to vector of teams
 	if (!home_team_found) {
 		Team home_team(data.home_name);
 		evaluateFirstHalf(home_team, dummy_match, data.home_fh_score, data.away_fh_score, true);

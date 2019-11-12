@@ -1,0 +1,16 @@
+Date 8.11.2019
+sassuolo bologna 1 0 3 1 c 1 1 3 3
+. sass atak oynayan maclari gollu biten bi takim
+brescia torino 0 2 0 4 c 0 1 4 3
+inter hellas 0 1 2 1 c 5 1 4 2
+napoli genoa 0 0 0 0 c 3 0 2 2
+cagliari fiorentina 3 0 5 2 c 3 4 2 2
+. cagliariye guveniyordun, duz oynadin, ust veya fark atar oynasana :(
+lazio lecce 1 1 4 2 c 7 1 2 2
+. lazio maclari hep ust, kornerde de cilgin
+sampdoria atalanta 0 0 0 0 c 1 3 0 4
+. maci bi izle nolmus, atalanta ve gol olmamamsi cok ilginc
+udinese spal 0 0 0 0 c 1 4 2 3
+parma roma 0 0 2 0 c 4 4 1 6
+juventus milan 0 0 1 0 c 3 2 2 3
+. milan hoca degistirdi ve iyi oynadi, juve 1-2 kere geldi atti

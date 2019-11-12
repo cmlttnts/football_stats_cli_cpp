@@ -41,6 +41,34 @@ bool sortMatchesByDate(const Match& m1, const Match& m2) {
 		return false;
 }
 
+void rankTeamsByOption(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
+	switch (option)
+	{
+	case BEST_TEAM_OPTIONS::BEST_RESULTS:
+		break;
+	case BEST_TEAM_OPTIONS::WORST_RESULTS:
+		break;
+	case BEST_TEAM_OPTIONS::MOST_GOALS_SCORED:
+		break;
+	case BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED:
+		break;
+	case BEST_TEAM_OPTIONS::MOST_GOALS_RECEIVED:
+		break;
+	case BEST_TEAM_OPTIONS::LEAST_GOALS_RECEIVED:
+		break;
+	case BEST_TEAM_OPTIONS::COMEBAKCS:
+		break;
+	case BEST_TEAM_OPTIONS::CORNERS:
+		break;
+	case BEST_TEAM_OPTIONS::GO_BACK:
+		break;
+	case BEST_TEAM_OPTIONS::EXIT:
+		break;
+	default:
+		break;
+	}
+}
+
 bool sortByWins(const Team& team1, const Team& team2) {
 	if (team1.num_of_wins > team2.num_of_wins)
 		return true;
