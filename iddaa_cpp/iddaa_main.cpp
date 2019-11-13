@@ -34,7 +34,7 @@ int main() {
 	bool exited = false;
 	bool go_back_to_init = false;
 	bool go_back_to_team = false;
-	bool go_back_to_league = false;
+	//bool go_back_to_league = false;
 	std::vector<Team> all_teams;
 	bool first_time_best_search = true;
 	while (!exited) {

@@ -11,7 +11,9 @@
 TEAM_ANALYSIS_OPTIONS presentTeam(const std::string&, const std::vector<std::filesystem::path>&);
 void presentBestTeams(std::vector<Team>&, BEST_TEAM_OPTIONS);
 void presentRankedTeams(std::vector<Team>&, BEST_TEAM_OPTIONS);
-void presentRankN(size_t ,std::string, std::string,float, unsigned int);
+void presentRankN(size_t ,std::string, std::string, float, unsigned int);
+void presentRankN(size_t, std::string, std::string, unsigned int, unsigned int);
+void presentRankN(size_t, std::string, std::string, float, unsigned int, unsigned int);
 void presentRankTitle(std::string, size_t);
 void presentMatchHistory(Team&);
 void presentTeamInfo(const Team&);

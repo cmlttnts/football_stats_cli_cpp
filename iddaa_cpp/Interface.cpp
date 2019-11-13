@@ -7,7 +7,7 @@ using boost::format;
 void greeting() {
 	cout << format("%30s %s\n") % "" % "IDDAA ANALIZ PROGRAMI";
 }
-
+// TODO: Add comparison of two teams, (karsilastirmali goruntu secenegi, iki takim ismi girip yanyana ozllik)
 INIT_OPTIONS getInitOptions() {
 	cout << format("%-25s %s %-4s\n")% "Takim secenekleri icin" % ":" % "1";
 	cout << format("%-25s %s %-4s\n") % "Lig secenekleri icin" % ":" % "2";
@@ -74,17 +74,19 @@ std::string getTeamNameFromUser() {
 
 BEST_TEAM_OPTIONS getBestTeamOption() {
 	//system("cls");
-	cout << format("%-30s %s %-4s\n") % "1.2.1)En iyi sonuc alanlar" % ":" % "1";
-	cout << format("%-30s %s %-4s\n") % "1.2.2)En kotu sonuc alanlar" % ":" % "2";
-	cout << format("%-30s %s %-4s\n") % "1.2.3)En cok gol atanlar" % ":" % "3";
-	cout << format("%-30s %s %-4s\n") % "1.2.4)En az gol atanlar" % ":" % "4";
-	cout << format("%-30s %s %-4s\n") % "1.2.5)En cok gol yiyenler" % ":" % "5";
-	cout << format("%-30s %s %-4s\n") % "1.2.6)En az gol yiyenler" % ":" % "6";
-	cout << format("%-30s %s %-4s\n") % "1.2.7)Geri donuslerde enler" % ":" % "7";
-	cout << format("%-30s %s %-4s\n") % "1.2.8)Kornerlerde enler" % ":" % "8";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.1)En iyi sonuc alanlar" % ":" % "1";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.2)En kotu sonuc alanlar" % ":" % "2";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.3)En cok gol atanlar" % ":" % "3";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.4)En az gol atanlar" % ":" % "4";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.5)En cok gol yiyenler" % ":" % "5";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.6)En az gol yiyenler" % ":" % "6";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.7)Maclarinda en cok gol olanlar" % ":" % "7";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.8)Maclarinda en az gol olanlar" % ":" % "8";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.9)Geri donuslerde enler" % ":" % "9";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.10)Kornerlerde enler" % ":" % "10";
 
-	cout << format("%-30s %s %-4s\n") % "Bir geri gitmek icin" % ":" % "g";
-	cout << format("%-30s %s %-4s\n") % "Cikis icin" % ":" % "q";
+	cout << format("%s%-40T-%s %-4s\n") % "Bir geri gitmek icin" % ":" % "g";
+	cout << format("%s%-40T-%s %-4s\n") % "Cikis icin" % ":" % "q";
 
 	std::string user_in;
 	while (1) {
@@ -102,8 +104,12 @@ BEST_TEAM_OPTIONS getBestTeamOption() {
 		else if (!user_in.compare("6"))
 			return BEST_TEAM_OPTIONS::LEAST_GOALS_RECEIVED;
 		else if (!user_in.compare("7"))
-			return BEST_TEAM_OPTIONS::COMEBACKS;
+			return BEST_TEAM_OPTIONS::MOST_GOALS_IN_MATCHES;
 		else if (!user_in.compare("8"))
+			return BEST_TEAM_OPTIONS::LEAST_GOALS_IN_MATCHES;
+		else if (!user_in.compare("9"))
+			return BEST_TEAM_OPTIONS::COMEBACKS;
+		else if (!user_in.compare("10"))
 			return BEST_TEAM_OPTIONS::CORNERS;
 		else if (!user_in.compare("g"))
 			return BEST_TEAM_OPTIONS::GO_BACK;

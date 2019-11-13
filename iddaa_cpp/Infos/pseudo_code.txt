@@ -1,4 +1,4 @@
-﻿TODO: En İyi özelliklere göre ilk 3 takım sıralama
+﻿En İyi özelliklere göre ilk 3 takım sıralama
 Özellikler:
 	*Sonuçlar
 		- En fazla 1y önde geçen
@@ -40,7 +40,7 @@
 		- Ortalama 2y en az korner yiyen
 		- Ortalama maçta en fazla korner olan
 		- Ortalama maçta en az korner olan
-TODO: Ligleri maç özelliklerine göre analiz etme
+Ligleri maç özelliklerine göre analiz etme
 Özellikler
 	*Sonuçlar
 		-Ev sahibi yenme oranı

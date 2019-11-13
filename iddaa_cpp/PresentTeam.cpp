@@ -5,6 +5,7 @@
 #include "MyAlgortihms.h"
 #include <algorithm>
 
+#define topHowMany 15
 #define BET_MATCH_DELAY 500
 #define INIT_DELAY 500
 #define BET_PRES_DELAY 500
@@ -169,7 +170,7 @@ void _presentCorners(const Team& team){
 
 void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 
-	size_t topHowMany = 10;
+	//size_t topHowMany = 10;
 	system("cls");
 	switch (option)
 	{
@@ -178,21 +179,21 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		std::sort(teams.begin(), teams.end(), sortByWins);
 		presentRankTitle("EN COK KAZANANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam =", teams[i].num_of_wins, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam", teams[i].num_of_wins, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		// FIRST HALF WINS
 		std::sort(teams.begin(), teams.end(), sortByFHWins);
 		presentRankTitle("1Y EN COK KAZANANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam =", teams[i].num_of_first_half_wins, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam", teams[i].num_of_first_half_wins, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		// SECOND HALF WINS
 		std::sort(teams.begin(), teams.end(), sortBySHWins);
 		presentRankTitle("2Y EN COK KAZANANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam =", teams[i].num_of_second_half_wins, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Kazandigi / Toplam", teams[i].num_of_second_half_wins, teams[i].num_of_matches);
 		}
 		cout << "\n";
 
@@ -201,20 +202,20 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		std::sort(teams.begin(), teams.end(), sortByLosses);
 		presentRankTitle("EN COK KAYBEDENLER TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam =", teams[i].num_of_losses, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam", teams[i].num_of_losses, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		std::sort(teams.begin(), teams.end(), sortByFHLosses);
 		presentRankTitle("1Y EN COK KAYBEDENLER TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam =", teams[i].num_of_first_half_losses, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam", teams[i].num_of_first_half_losses, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		//second half losses
 		std::sort(teams.begin(), teams.end(), sortBySHLosses);
 		presentRankTitle("2Y EN COK KAYBEDENLER TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam =", teams[i].num_of_second_half_losses, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Kaybettigi / Toplam", teams[i].num_of_second_half_losses, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		break;
@@ -223,7 +224,7 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		presentRankTitle("EN COK GOL ATANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
 			float avrg = teams[i].num_of_goals / float(teams[i].num_of_matches);
-			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", avrg, teams[i].num_of_matches);
 		}
 		cout << "\n";
 
@@ -231,14 +232,14 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		presentRankTitle("1Y EN COK GOL ATANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
 			float avrg = teams[i].num_of_first_half_goals / float(teams[i].num_of_matches);
-			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", avrg, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		std::sort(teams.begin(), teams.end(), sortByMostGoalsSH);
 		presentRankTitle("2Y EN COK GOL ATANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
 			float avrg = teams[i].num_of_second_half_goals / float(teams[i].num_of_matches);
-			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", avrg, teams[i].num_of_matches);
 		}
 		cout << "\n";
 
@@ -249,7 +250,7 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		presentRankTitle("EN AZ GOL ATANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
 			float avrg = teams[i].num_of_goals / float(teams[i].num_of_matches);
-			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", avrg, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		break;
@@ -258,7 +259,7 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		presentRankTitle("EN COK GOL YIYENLER TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
 			float avrg = teams[i].num_of_rec_goals / float(teams[i].num_of_matches);
-			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", avrg, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		break;
@@ -268,7 +269,26 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		presentRankTitle("EN AZ GOL YIYENLER TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
 			float avrg = teams[i].num_of_rec_goals / float(teams[i].num_of_matches);
-			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi=", avrg, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", avrg, teams[i].num_of_matches);
+		}
+		cout << "\n";
+		break;
+	case BEST_TEAM_OPTIONS::MOST_GOALS_IN_MATCHES:
+		std::sort(teams.begin(), teams.end(), sortByMostGoalsInMatch);
+		presentRankTitle("MACLARINDA EN COK GOL OLANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float total = float(teams[i].num_of_goals + teams[i].num_of_rec_goals) / float(teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / 2.5 ust bitenler /Mac Sayisi", total, teams[i].num_of_above_2_5_matches, teams[i].num_of_matches);
+		}
+		cout << "\n";
+		break;
+	case BEST_TEAM_OPTIONS::LEAST_GOALS_IN_MATCHES:
+		std::sort(teams.begin(), teams.end(), sortByMostGoalsInMatch);
+		std::reverse(teams.begin(), teams.end());
+		presentRankTitle("MACLARINDA EN AZ GOL OLANLAR TOP", topHowMany);
+		for (size_t i = 0; i < topHowMany; i++) {
+			float total = (teams[i].num_of_goals + teams[i].num_of_rec_goals) / float(teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", total, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		break;
@@ -276,22 +296,20 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		std::sort(teams.begin(), teams.end(), sortByComebacksAndGobacks);
 		presentRankTitle("MACLARINDA EN COK GERI DONUS OLANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			float total = teams[i].num_of_comebacks + teams[i].num_of_gobacks;
-			presentRankN(i + 1, teams[i].name, "Surpriz Mac / Toplam Mac=", total, teams[i].num_of_matches);
+			unsigned int total = teams[i].num_of_comebacks + teams[i].num_of_gobacks;
+			presentRankN(i + 1, teams[i].name, "Surpriz Mac / Toplam Mac", total, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		std::sort(teams.begin(), teams.end(), sortByComebacks);
 		presentRankTitle("MACLARINDA EN COK GERI DONUS YAPANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			float total = teams[i].num_of_comebacks;
-			presentRankN(i + 1, teams[i].name, "Surpriz Mac / Toplam Mac=", total, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Surpriz Mac / Toplam Mac", teams[i].num_of_comebacks, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		std::sort(teams.begin(), teams.end(), sortByGobacks);
 		presentRankTitle("MACLARINDA EN COK RAKIBIN GERI DONUS YAPTIGI TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			float total = teams[i].num_of_gobacks;
-			presentRankN(i + 1, teams[i].name, "Surpriz Mac / Toplam Mac=", total, teams[i].num_of_matches);
+			presentRankN(i + 1, teams[i].name, "Surpriz Mac / Toplam Mac", teams[i].num_of_gobacks, teams[i].num_of_matches);
 		}
 		cout << "\n";
 		break;
@@ -302,7 +320,17 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 			float avrg_corner{ 0.f };
 			for (size_t i = 0; i < topHowMany; i++) {
 				avrg_corner = float((teams[i].num_of_corners + teams[i].num_of_corners_rec)) / teams[i].num_of_corner_info_match;
-				presentRankN(i + 1, teams[i].name, "Mac basi / Mac sayisi =", avrg_corner, teams[i].num_of_corner_info_match);
+				presentRankN(i + 1, teams[i].name, "Mac basi / Mac sayisi", avrg_corner, teams[i].num_of_corner_info_match);
+			}
+		}
+		cout << "\n";
+		std::reverse(teams.begin(), teams.end());
+		presentRankTitle("MACLARINDA EN AZ KORNER OLANLAR TOP", topHowMany);
+		{
+			float avrg_corner{ 0.f };
+			for (size_t i = 0; i < topHowMany; i++) {
+				avrg_corner = float((teams[i].num_of_corners + teams[i].num_of_corners_rec)) / teams[i].num_of_corner_info_match;
+				presentRankN(i + 1, teams[i].name, "Mac basi / Mac sayisi", avrg_corner, teams[i].num_of_corner_info_match);
 			}
 		}
 		cout << "\n";
@@ -320,8 +348,22 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 void presentRankN(size_t rank,
 				std::string name, std::string text,
 				float value, unsigned int total) {
-	cout << format("%3u-) %-12s %12s %3.3f / %u\n") % rank % name % text % value % total;
+	cout << format("%3u-) %-16s (%s) = (%.3f / %u)\n") % rank % name % text % value % total;
 }
+
+void presentRankN(size_t rank,
+	std::string name, std::string text,
+	unsigned int value, unsigned int total) {
+	cout << format("%3u-) %-16s (%s) = (%u / %u)\n") % rank % name % text % value % total;
+}
+
+void presentRankN(size_t rank,
+	std::string name, std::string text,
+	float value1, unsigned int value2, unsigned int total) {
+	cout << format("%3u-) %-16s (%s) = (%.3f / %u / %u)\n") % rank % name % text % value1 % value2 % total;
+}
+
+
 
 void presentRankTitle(std::string title, size_t topX) {
 	HANDLE h_cons;

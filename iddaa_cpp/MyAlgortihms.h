@@ -17,6 +17,9 @@ bool sortByMostGoalsRec(const Team& team1, const Team& team2);
 bool sortByMostGoalsFH(const Team& team1, const Team& team2);
 bool sortByMostGoalsSH(const Team& team1, const Team& team2);
 
+bool sortByMostGoalsInMatch(const Team& team1, const Team& team2);
+
+
 bool sortByComebacksAndGobacks(const Team& team1, const Team& team2);
 bool sortByComebacks(const Team& team1, const Team& team2);
 bool sortByGobacks(const Team& team1, const Team& team2);
