@@ -2,9 +2,11 @@
 #include <string>
 #include <filesystem>
 #include <vector>
+#include <utility>
 //inital options
 enum class INIT_OPTIONS {
 TEAM_OPTION,
+COMPARE_TWO,
 LEAGUE_OPTION,
 TEAM_NAMES_OPTION,
 EXIT
@@ -37,6 +39,12 @@ enum class BEST_TEAM_OPTIONS {
 	EXIT
 };
 
+
+enum class COMPARE_TWO_OPTIONS {
+	TEAMS_PICKED,
+	GO_BACK,
+	EXIT
+};
 // if league options selected, which league
 enum class LEAGUE_OPTIONS {
 	TR,
@@ -58,3 +66,5 @@ BEST_TEAM_OPTIONS getBestTeamOption();
 LEAGUE_OPTIONS getLeagueOption();
 void printTeamsPerLeague(const std::vector<std::filesystem::path>&);
 std::vector<std::string> _getTeamsFromFile(const std::string&);
+
+std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS> getTwoTeamNamesForCompare();

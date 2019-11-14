@@ -1,6 +1,6 @@
 // iddaa_cpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
+#include <utility>
 #include <Windows.h>
 #include <iostream>
 #include "Team.h"
@@ -95,6 +95,28 @@ int main() {
 							break;
 					}
 				}
+				break;
+			case INIT_OPTIONS::COMPARE_TWO:
+				go_back_to_init = false;
+				while (!exited && !go_back_to_init) {
+					//std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS>
+					auto two_teams = getTwoTeamNamesForCompare();
+					switch (std::get<2>(two_teams))
+					{
+					case COMPARE_TWO_OPTIONS::TEAMS_PICKED:
+						presentComparison(two_teams, match_file_names);
+						break;
+					case COMPARE_TWO_OPTIONS::GO_BACK:
+						go_back_to_init = true;
+						break;
+					case COMPARE_TWO_OPTIONS::EXIT:
+						exited = true;
+						break;
+					default:
+						break;
+					}
+				}
+
 				break;
 			case INIT_OPTIONS::LEAGUE_OPTION:
 				std::cout << "Cok Yakinda ...\n";

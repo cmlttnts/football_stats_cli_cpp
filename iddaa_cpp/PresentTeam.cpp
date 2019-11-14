@@ -10,6 +10,14 @@
 #define INIT_DELAY 500
 #define BET_PRES_DELAY 500
 #define BET_CHAPTER_DELAY 500
+#define WHITE_COL 7
+#define BLUE_COL 9
+#define CYAN_COL 11
+#define RED_COL 12
+#define YELLOW_COL 14
+#define setTitleColor() SetConsoleTextAttribute(h_cons, CYAN_COL)
+#define setInfoColor() SetConsoleTextAttribute(h_cons, WHITE_COL)
+#define setCommentColor() SetConsoleTextAttribute(h_cons, YELLOW_COL)
 using namespace std;
 using boost::format;
 
@@ -19,27 +27,128 @@ TEAM_ANALYSIS_OPTIONS presentTeam(const std::string& team_name, const std::vecto
 		return TEAM_ANALYSIS_OPTIONS::EXIT;
 	else if (!team_name.compare("g"))
 		return TEAM_ANALYSIS_OPTIONS::GO_BACK;
-	Team team(team_name);
-	bool failure = true;
-	// Read files to modify team's properties
-	for (const auto& name : file_names) {
-		//if we find at least 1 match we say it is success
-		failure = searchTeamMatch(name, team) && failure;
-		//std::cout << name << "\n";
-	}
-	// Preset team's info
-	if (failure) {
-		std::cout << "No match found" << "\n";
-	}
-	else {
-		presentMatchHistory(team);
-		presentTeamInfo(team);
+	// Team and team found boolean pair, if found present team
+	std::pair<Team, bool> team_info = searchFilesForTeam(file_names, team_name, true);
+	if(!team_info.second){
+		presentMatchHistory(team_info.first);
+		presentTeamInfo(team_info.first);
 	}
 	return TEAM_ANALYSIS_OPTIONS::TEAM_PICKED;
 }
 
 void presentBestTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 	presentRankedTeams(teams, option);
+}
+
+void presentComparison(std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS> two_teams, const std::vector<std::filesystem::path>& file_names) {
+
+	std::pair<Team, bool> team1_info = searchFilesForTeam(file_names, std::get<0>(two_teams), false);
+	std::pair<Team, bool> team2_info = searchFilesForTeam(file_names, std::get<1>(two_teams), false);
+
+	//if both teams found, compare them
+	if (!team1_info.second && !team2_info.second)
+		//cout << "Burada Karsilastirma Olacak!\n";
+		presentTwoTeamsSideBySide(team1_info.first, team2_info.first);
+	else
+		std::cout << "En az bir takim ismini yanlis girdiniz!!!\n";
+}	
+
+void presentTwoTeamsSideBySide(const Team& team1, const Team& team2) {
+	system("cls");
+	HANDLE h_cons;
+	h_cons = GetStdHandle(STD_OUTPUT_HANDLE);
+	cout << format("%=50s|%=50s\n") % team1.name % team2.name;
+
+	// Match win draw loss number
+	setTitleColor();
+	cout << format("%=100s\n") % "MAC SONUCLARI (Galip/Berabere/Maglup)";
+	string s1 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team1.num_of_wins%team1.num_of_draws%team1.num_of_losses%team1.num_of_matches);
+	string s2 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team2.num_of_wins % team2.num_of_draws % team2.num_of_losses % team2.num_of_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+
+	//HOME VS AWAY PERFORMANCE
+	setTitleColor();
+	cout << format("%=100s\n") % "EV / DEPLASMAN PERFORMANSI (Galip/Berabere/Maglup)";
+	s1 = str(format("Evinde (%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team1.num_of_home_wins % team1.num_of_home_draws % team1.num_of_home_losses % team1.num_of_home_matches);
+	s2 = str(format("Deplasmanda (%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team2.num_of_away_wins % team2.num_of_away_draws % team2.num_of_away_losses % team2.num_of_away_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+
+	setTitleColor();
+	cout << format("%=100s\n") % "ILK YARI PERFORMANSI (Galip/Berabere/Maglup)";
+	s1 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team1.num_of_first_half_wins % (team1.num_of_matches - team1.num_of_first_half_wins - team1.num_of_first_half_losses) % team1.num_of_first_half_losses % team1.num_of_matches);
+	s2 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team2.num_of_first_half_wins % (team2.num_of_matches - team2.num_of_first_half_wins - team2.num_of_first_half_losses) % team2.num_of_first_half_losses % team2.num_of_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+
+	// SECOND HALF COMPARISONS
+	setTitleColor();
+	cout << format("%=100s\n") % "IKINCI YARI PERFORMANSI (Galip/Berabere/Maglup)";
+	s1 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team1.num_of_second_half_wins % (team1.num_of_matches - team1.num_of_second_half_wins - team1.num_of_second_half_losses) % team1.num_of_second_half_losses % team1.num_of_matches);
+	s2 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team2.num_of_second_half_wins % (team2.num_of_matches - team2.num_of_second_half_wins - team2.num_of_second_half_losses) % team2.num_of_second_half_losses % team2.num_of_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+
+	// GOALS
+	setTitleColor();
+	cout << format("%=100s\n") % "ATILAN YIYILEN GOL ISTATISTIKLERI";
+	float avrg1 = (team1.num_of_goals+team1.num_of_goals_rec) / float(team1.num_of_matches);
+	float avrg2 = (team2.num_of_goals + team2.num_of_goals_rec) / float(team2.num_of_matches);
+	s1 = str(format("Maclarinda Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg1 % team1.num_of_matches);
+	s2 = str(format("Maclarinda Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg2 % team2.num_of_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+
+	avrg1 = team1.num_of_goals / float(team1.num_of_matches);
+	avrg2 = team2.num_of_goals / float(team2.num_of_matches);
+	s1 = str(format("Attiklari Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg1 % team1.num_of_matches);
+	s2 = str(format("Attiklari Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg2 % team2.num_of_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+
+	avrg1 = team1.num_of_home_goals / float(team1.num_of_home_matches);
+	avrg2 = team2.num_of_away_goals / float(team2.num_of_away_matches);
+	s1 = str(format("Evde Attigi Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg1 % team1.num_of_home_matches);
+	s2 = str(format("Depte Attigi Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg2 % team2.num_of_away_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+
+	avrg1 = team1.num_of_home_goals_rec / float(team1.num_of_home_matches);
+	avrg2 = team2.num_of_away_goals_rec / float(team2.num_of_away_matches);
+	s1 = str(format("Evde Yedigi Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg1 % team1.num_of_home_matches);
+	s2 = str(format("Depte Yedigi Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg2 % team2.num_of_away_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+
+	// UNDER OVER STATS
+	setTitleColor();
+	cout << format("%=100s\n") % "ALT UST ISTATISTIKLERI";
+	s1 = str(format("2.5 ALT / UST: %2u / %2u") % (team1.num_of_matches - team1.num_of_above_2_5_matches) % team1.num_of_above_2_5_matches);
+	s2 = str(format("2.5 ALT / UST: %2u / %2u") % (team2.num_of_matches - team2.num_of_above_2_5_matches) % team2.num_of_above_2_5_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+
+	s1 = str(format("3.5 ALT / UST: %2u / %2u") % team1.num_of_below_3_5_matches %(team1.num_of_matches - team1.num_of_below_3_5_matches));
+	s2 = str(format("3.5 ALT / UST: %2u / %2u") % team2.num_of_below_3_5_matches % (team2.num_of_matches - team2.num_of_below_3_5_matches));
+	setCommentColor();
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+
+	s1 = str(format("1Y 1.5 ALT / UST: %2u / %2u") % (team1.num_of_matches - team1.num_of_above_1_5_half_matches) % team1.num_of_above_1_5_half_matches);
+	s2 = str(format("1Y 1.5 ALT / UST: %2u / %2u") % (team2.num_of_matches - team2.num_of_above_1_5_half_matches) % team2.num_of_above_1_5_half_matches);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+
+	s1 = str(format("1Y 0.5 ALT / UST: %2u / %2u") % team1.num_of_below_0_5_half_matches % (team1.num_of_matches - team1.num_of_below_0_5_half_matches));
+	s2 = str(format("1Y 0.5 ALT / UST: %2u / %2u") % team2.num_of_below_0_5_half_matches % (team2.num_of_matches - team2.num_of_below_0_5_half_matches));
+	setCommentColor();
+	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+
+	// END
+	setInfoColor();
+	// First Half Second half win loss numbers
+	// Home results, away results
+	// Average goals scored and recieved
 }
 
 void presentMatchHistory(Team& team) {
@@ -63,14 +172,6 @@ void presentTeamInfo(const Team& team) {
 	_presentCorners(team);
 }
 
-#define WHITE_COL 7
-#define BLUE_COL 9
-#define CYAN_COL 11
-#define RED_COL 12
-#define YELLOW_COL 14
-#define setTitleColor() SetConsoleTextAttribute(h_cons, CYAN_COL)
-#define setInfoColor() SetConsoleTextAttribute(h_cons, WHITE_COL)
-#define setCommentColor() SetConsoleTextAttribute(h_cons, YELLOW_COL)
 
 void _presentWinsAndLosses(const Team& team) {
 	HANDLE h_cons;
@@ -116,8 +217,8 @@ void _presentGoals(const Team& team) {
 	setInfoColor();
 	cout << format("%s %2u%s") % "Toplam Mac Sayisi:" % team.num_of_matches % "\n";
 	cout << format("%-12s %2u   %s %5.2f\n") % "Attiklari :" % team.num_of_goals % "Mac basina ort:" % (team.num_of_goals / float(team.num_of_matches));
-	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_rec_goals % "Mac basina ort:" % (team.num_of_rec_goals / float(team.num_of_matches));
-	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_goals + team.num_of_rec_goals) % "Mac basina ort:" % ((team.num_of_goals + team.num_of_rec_goals) / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_goals_rec % "Mac basina ort:" % (team.num_of_goals_rec / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_goals + team.num_of_goals_rec) % "Mac basina ort:" % ((team.num_of_goals + team.num_of_goals_rec) / float(team.num_of_matches));
 	cout << "Gol yemedikleri mac sayisi: " << team.num_of_clean_sheets << "\n";
 	cout << "KG VAR biten mac sayisi: " << team.num_of_kg_var_matches << "\n";
 	Sleep(BET_CHAPTER_DELAY);
@@ -127,8 +228,8 @@ void _presentGoals(const Team& team) {
 	setInfoColor();
 	cout << format("%s %2u%s") % "Toplam Mac Sayisi:" % team.num_of_matches % "\n";
 	cout << format("%-12s %2u   %s %5.2f\n") % "Attiklari :" % team.num_of_first_half_goals % "Mac basina ort:" % (team.num_of_first_half_goals / float(team.num_of_matches));
-	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_first_half_rec_goals % "Mac basina ort:" % (team.num_of_first_half_rec_goals / float(team.num_of_matches));
-	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_first_half_goals + team.num_of_first_half_rec_goals) % "Mac basina ort:" % ((team.num_of_first_half_goals + team.num_of_first_half_rec_goals) / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_first_half_goals_rec % "Mac basina ort:" % (team.num_of_first_half_goals_rec / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_first_half_goals + team.num_of_first_half_goals_rec) % "Mac basina ort:" % ((team.num_of_first_half_goals + team.num_of_first_half_goals_rec) / float(team.num_of_matches));
 	Sleep(BET_CHAPTER_DELAY);
 	//second half goals
 	setTitleColor();
@@ -136,8 +237,8 @@ void _presentGoals(const Team& team) {
 	setInfoColor();
 	cout << format("%s %2u%s") % "Toplam Mac Sayisi:" % team.num_of_matches % "\n";
 	cout << format("%-12s %2u   %s %5.2f\n") % "Attiklari :" % team.num_of_second_half_goals % "Mac basina ort:" % (team.num_of_second_half_goals / float(team.num_of_matches));
-	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_second_half_rec_goals % "Mac basina ort:" % (team.num_of_second_half_rec_goals / float(team.num_of_matches));
-	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_second_half_goals + team.num_of_second_half_rec_goals) % "Mac basina ort:" % ((team.num_of_second_half_goals + team.num_of_second_half_rec_goals) / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Yedikleri :" % team.num_of_second_half_goals_rec % "Mac basina ort:" % (team.num_of_second_half_goals_rec / float(team.num_of_matches));
+	cout << format("%-12s %2u   %s %5.2f\n") % "Toplam :" % (team.num_of_second_half_goals + team.num_of_second_half_goals_rec) % "Mac basina ort:" % ((team.num_of_second_half_goals + team.num_of_second_half_goals_rec) / float(team.num_of_matches));
 	Sleep(BET_CHAPTER_DELAY);
 	// ALT UST
 	setTitleColor();
@@ -258,7 +359,7 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		std::sort(teams.begin(), teams.end(), sortByMostGoalsRec);
 		presentRankTitle("EN COK GOL YIYENLER TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			float avrg = teams[i].num_of_rec_goals / float(teams[i].num_of_matches);
+			float avrg = teams[i].num_of_goals_rec / float(teams[i].num_of_matches);
 			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", avrg, teams[i].num_of_matches);
 		}
 		cout << "\n";
@@ -268,7 +369,7 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		std::reverse(teams.begin(), teams.end());
 		presentRankTitle("EN AZ GOL YIYENLER TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			float avrg = teams[i].num_of_rec_goals / float(teams[i].num_of_matches);
+			float avrg = teams[i].num_of_goals_rec / float(teams[i].num_of_matches);
 			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", avrg, teams[i].num_of_matches);
 		}
 		cout << "\n";
@@ -277,7 +378,7 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		std::sort(teams.begin(), teams.end(), sortByMostGoalsInMatch);
 		presentRankTitle("MACLARINDA EN COK GOL OLANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			float total = float(teams[i].num_of_goals + teams[i].num_of_rec_goals) / float(teams[i].num_of_matches);
+			float total = float(teams[i].num_of_goals + teams[i].num_of_goals_rec) / float(teams[i].num_of_matches);
 			presentRankN(i + 1, teams[i].name, "Ortalama / 2.5 ust bitenler /Mac Sayisi", total, teams[i].num_of_above_2_5_matches, teams[i].num_of_matches);
 		}
 		cout << "\n";
@@ -287,7 +388,7 @@ void presentRankedTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 		std::reverse(teams.begin(), teams.end());
 		presentRankTitle("MACLARINDA EN AZ GOL OLANLAR TOP", topHowMany);
 		for (size_t i = 0; i < topHowMany; i++) {
-			float total = (teams[i].num_of_goals + teams[i].num_of_rec_goals) / float(teams[i].num_of_matches);
+			float total = (teams[i].num_of_goals + teams[i].num_of_goals_rec) / float(teams[i].num_of_matches);
 			presentRankN(i + 1, teams[i].name, "Ortalama / Mac Sayisi", total, teams[i].num_of_matches);
 		}
 		cout << "\n";
@@ -362,8 +463,6 @@ void presentRankN(size_t rank,
 	float value1, unsigned int value2, unsigned int total) {
 	cout << format("%3u-) %-16s (%s) = (%.3f / %u / %u)\n") % rank % name % text % value1 % value2 % total;
 }
-
-
 
 void presentRankTitle(std::string title, size_t topX) {
 	HANDLE h_cons;

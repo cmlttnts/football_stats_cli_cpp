@@ -114,8 +114,8 @@ bool sortByMostGoalsSH(const Team& team1, const Team& team2) {
 }
 // GOALS RECEIVED
 bool sortByMostGoalsRec(const Team& team1, const Team& team2) {
-	float team1_avrg = team1.num_of_rec_goals / float(team1.num_of_matches);
-	float team2_avrg = team2.num_of_rec_goals / float(team2.num_of_matches);
+	float team1_avrg = team1.num_of_goals_rec / float(team1.num_of_matches);
+	float team2_avrg = team2.num_of_goals_rec / float(team2.num_of_matches);
 	if (team1_avrg > team2_avrg)
 		return true;
 	else
@@ -123,8 +123,8 @@ bool sortByMostGoalsRec(const Team& team1, const Team& team2) {
 }
 
 bool sortByMostGoalsInMatch(const Team& team1, const Team& team2) {
-	float team1_avrg = (team1.num_of_goals + team1.num_of_rec_goals) / float(team1.num_of_matches);
-	float team2_avrg = (team2.num_of_goals + team2.num_of_rec_goals) / float(team2.num_of_matches);
+	float team1_avrg = (team1.num_of_goals + team1.num_of_goals_rec) / float(team1.num_of_matches);
+	float team2_avrg = (team2.num_of_goals + team2.num_of_goals_rec) / float(team2.num_of_matches);
 	if (team1_avrg > team2_avrg)
 		return true;
 	else

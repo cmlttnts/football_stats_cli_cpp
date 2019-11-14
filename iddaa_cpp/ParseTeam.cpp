@@ -5,6 +5,30 @@
 #include "OneLineInfo.h"
 #include "Interface.h"
 using namespace std;
+
+std::pair<Team, bool> searchFilesForTeam(const std::vector<std::filesystem::path>& file_names, const std::string& team_name, bool include_cl) {
+
+	std::pair<Team, bool> team_info;
+	team_info.first = Team(team_name);
+	//boolean failure of finding that team in the search of files
+	team_info.second = true;
+	// Read files to modify team's properties
+	for (const auto& name : file_names) {
+		//if we find at least 1 match we say it is success
+		std::string file_str = name.string();
+		//if we don't include champions league, we should ignore cl files
+		if (!include_cl && (file_str.find("cl") != std::string::npos))
+			continue;
+		team_info.second = searchTeamMatch(name, team_info.first) && team_info.second;
+		//std::cout << name << "\n";
+	}
+	// Preset team's info
+	if (team_info.second) {
+		std::cout << "Dosyalarda boyle bir takim bilgisi yok!" << "\n";
+	}
+	return team_info;
+}
+
 int searchTeamMatch(const std::filesystem::path& the_path, Team & team) {
 	ifstream file(the_path);
 	if (file.is_open()) {
@@ -104,7 +128,7 @@ void evaluateFirstHalf(Team& team, Match& match,
 
 	if (is_team_home) {
 		team.num_of_first_half_goals += home_fh_score;
-		team.num_of_first_half_rec_goals += away_fh_score;
+		team.num_of_first_half_goals_rec += away_fh_score;
 		if (home_fh_score > away_fh_score)
 			team.num_of_first_half_wins++;
 		else if (home_fh_score < away_fh_score)
@@ -112,7 +136,7 @@ void evaluateFirstHalf(Team& team, Match& match,
 	}
 	else {
 		team.num_of_first_half_goals += away_fh_score;
-		team.num_of_first_half_rec_goals += home_fh_score;
+		team.num_of_first_half_goals_rec += home_fh_score;
 		if (away_fh_score > home_fh_score)
 			team.num_of_first_half_wins++;
 		else if (away_fh_score < home_fh_score)
@@ -141,6 +165,7 @@ void evaluateSecondHalf(Team& team, Match& match,
 	else {
 		match.final_result = MatchResult::DRAW;
 		team.num_of_draws++;
+
 		match.picked_team_result = TeamsResult::TEAM_DRAW;
 	}
 
@@ -162,15 +187,18 @@ void evaluateSecondHalf(Team& team, Match& match,
 
 	if (is_team_home) {
 		//second half infoes
+		team.num_of_home_goals += home_total_score;
+		team.num_of_home_goals_rec += away_total_score;
+		team.num_of_home_matches++;
 		team.num_of_second_half_goals += home_sh_goals;
-		team.num_of_second_half_rec_goals += away_sh_goals;
+		team.num_of_second_half_goals_rec += away_sh_goals;
 		if (home_sh_goals > away_sh_goals)
 			team.num_of_second_half_wins++;
 		else if (away_sh_goals > home_sh_goals)
 			team.num_of_second_half_losses++;
 		//full match infoes
 		team.num_of_goals += home_total_score;
-		team.num_of_rec_goals += away_total_score;
+		team.num_of_goals_rec += away_total_score;
 		if (away_total_score == 0)
 			team.num_of_clean_sheets++;
 		if (home_total_score > away_total_score) {
@@ -180,7 +208,12 @@ void evaluateSecondHalf(Team& team, Match& match,
 		}
 		else if (away_total_score > home_total_score) {
 			team.num_of_losses++;
+			team.num_of_home_losses++;
 			match.picked_team_result = TeamsResult::TEAM_LOSS;
+		}
+		//draws
+		else {
+			team.num_of_home_draws++;
 		}
 		//COMEBACKS
 		if (match.first_half_result == MatchResult::HOME_WIN && (match.final_result == MatchResult::DRAW || match.final_result == MatchResult::AWAY_WIN))
@@ -192,15 +225,18 @@ void evaluateSecondHalf(Team& team, Match& match,
 	}
 	else {
 		//second half infoes
+		team.num_of_away_goals += away_total_score;
+		team.num_of_away_goals_rec += home_total_score;
+		team.num_of_away_matches++;
 		team.num_of_second_half_goals += away_sh_goals;
-		team.num_of_second_half_rec_goals += home_sh_goals;
+		team.num_of_second_half_goals_rec += home_sh_goals;
 		if (away_sh_goals > home_sh_goals)
 			team.num_of_second_half_wins++;
 		else if (home_sh_goals > away_sh_goals)
 			team.num_of_second_half_losses++;
 		//full match infoes
 		team.num_of_goals += away_total_score;
-		team.num_of_rec_goals += home_total_score;
+		team.num_of_goals_rec += home_total_score;
 		if (home_total_score == 0)
 			team.num_of_clean_sheets++;
 		if (away_total_score > home_total_score) {
@@ -210,7 +246,11 @@ void evaluateSecondHalf(Team& team, Match& match,
 		}
 		else if (home_total_score > away_total_score) {
 			team.num_of_losses++;
+			team.num_of_away_losses++;
 			match.picked_team_result = TeamsResult::TEAM_LOSS;
+		}
+		else {
+			team.num_of_away_draws++;
 		}
 		//COMEBACKS
 		if (match.first_half_result == MatchResult::HOME_WIN && (match.final_result == MatchResult::DRAW || match.final_result == MatchResult::AWAY_WIN))
