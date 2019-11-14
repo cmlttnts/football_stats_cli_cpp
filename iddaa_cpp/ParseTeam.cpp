@@ -6,7 +6,7 @@
 #include "Interface.h"
 using namespace std;
 
-std::pair<Team, bool> searchFilesForTeam(const std::vector<std::filesystem::path>& file_names, const std::string& team_name, bool include_cl) {
+std::pair<Team, bool> searchFilesForTeam(const std::vector<std::filesystem::path>& file_names, const std::string& team_name, LEAGUE_SEARCH_OPTION search_opt) {
 
 	std::pair<Team, bool> team_info;
 	team_info.first = Team(team_name);
@@ -16,11 +16,13 @@ std::pair<Team, bool> searchFilesForTeam(const std::vector<std::filesystem::path
 	for (const auto& name : file_names) {
 		//if we find at least 1 match we say it is success
 		std::string file_str = name.string();
-		//if we don't include champions league, we should ignore cl files
-		if (!include_cl && (file_str.find("cl") != std::string::npos))
-			continue;
-		team_info.second = searchTeamMatch(name, team_info.first) && team_info.second;
-		//std::cout << name << "\n";
+		//if only cl, search cl files
+		if(search_opt == LEAGUE_SEARCH_OPTION::ONLY_CL && (file_str.find("cl") != std::string::npos))
+			team_info.second = searchTeamMatch(name, team_info.first) && team_info.second;
+		else if(search_opt == LEAGUE_SEARCH_OPTION::ONLY_LEAGUES && (file_str.find("cl") == std::string::npos))
+			team_info.second = searchTeamMatch(name, team_info.first) && team_info.second;
+		else if(search_opt == LEAGUE_SEARCH_OPTION::BOTH)// include both cl and leagues
+			team_info.second = searchTeamMatch(name, team_info.first) && team_info.second;
 	}
 	// Preset team's info
 	if (team_info.second) {

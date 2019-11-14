@@ -25,7 +25,7 @@ void presentRankN(size_t, std::string, std::string, float, unsigned int, unsigne
 void presentRankTitle(std::string, size_t);
 
 // COMPARISON OF TWO TEAMS
-void presentComparison(std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS>, const std::vector<std::filesystem::path>&);
+void presentComparison(std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS, LEAGUE_SEARCH_OPTION>, const std::vector<std::filesystem::path>&);
 void presentTwoTeamsSideBySide(const Team&, const Team&);
 
 void printTeamsPerLeague(const std::vector<std::filesystem::path>&);

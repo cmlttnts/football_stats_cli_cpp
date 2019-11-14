@@ -28,7 +28,7 @@ TEAM_ANALYSIS_OPTIONS presentTeam(const std::string& team_name, const std::vecto
 	else if (!team_name.compare("g"))
 		return TEAM_ANALYSIS_OPTIONS::GO_BACK;
 	// Team and team found boolean pair, if found present team
-	std::pair<Team, bool> team_info = searchFilesForTeam(file_names, team_name, true);
+	std::pair<Team, bool> team_info = searchFilesForTeam(file_names, team_name, LEAGUE_SEARCH_OPTION::BOTH);
 	if(!team_info.second){
 		presentMatchHistory(team_info.first);
 		presentTeamInfo(team_info.first);
@@ -40,10 +40,10 @@ void presentBestTeams(std::vector<Team>& teams, BEST_TEAM_OPTIONS option) {
 	presentRankedTeams(teams, option);
 }
 
-void presentComparison(std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS> two_teams, const std::vector<std::filesystem::path>& file_names) {
+void presentComparison(std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS, LEAGUE_SEARCH_OPTION> two_teams, const std::vector<std::filesystem::path>& file_names) {
 
-	std::pair<Team, bool> team1_info = searchFilesForTeam(file_names, std::get<0>(two_teams), false);
-	std::pair<Team, bool> team2_info = searchFilesForTeam(file_names, std::get<1>(two_teams), false);
+	std::pair<Team, bool> team1_info = searchFilesForTeam(file_names, std::get<0>(two_teams), std::get<3>(two_teams));
+	std::pair<Team, bool> team2_info = searchFilesForTeam(file_names, std::get<1>(two_teams), std::get<3>(two_teams));
 
 	//if both teams found, compare them
 	if (!team1_info.second && !team2_info.second)

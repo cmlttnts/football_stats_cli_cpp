@@ -12,7 +12,7 @@ INIT_OPTIONS getInitOptions() {
 	cout << format("%s%-40T-%s %-4s\n") % "2.Iki takim karsilastirmak icin" % ":" % "2";
 	cout << format("%s%-40T-%s %-4s\n") % "3.Lig secenekleri icin" % ":" % "3";
 	cout << format("%s%-40T-%s %-4s\n") % "4.Takim listesi icin" % ":" % "4";
-	cout << format("%s%-40T-%s %-4s\n") % "5.Cikis icin" % ":" % "q";
+	cout << format("%s%-40T-%s %-4s\n") % "q.Cikis icin" % ":" % "q";
 	string user_in;
 	while (1) {
 		cin >> user_in;
@@ -37,8 +37,8 @@ TEAM_OPTIONS getTeamOption() {
 	system("cls");
 	cout << format("%s%-40T-%s %-4s\n") % "1.1)Takim Analizi icin" % ":" % "1";
 	cout << format("%s%-40T-%s %-4s\n") % "1.2)En iyi takimlar icin" % ":" % "2";
-	cout << format("%s%-40T-%s %-4s\n") % "Bir geri gitmek icin" % ":" % "g";
-	cout << format("%s%-40T-%s %-4s\n") % "Cikis icin" % ":" % "q";
+	cout << format("%s%-40T-%s %-4s\n") % "1.g)Bir geri gitmek icin" % ":" % "g";
+	cout << format("%s%-40T-%s %-4s\n") % "1.q)Cikis icin" % ":" % "q";
 
 	string user_in;
 	while (1) {
@@ -70,12 +70,35 @@ std::string getTeamNameFromUser() {
 	return team_name;
 }
 
-std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS> getTwoTeamNamesForCompare() {
-	std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS> team_names;
-	cout << "\nKarsilastirmak icin iki takim ismi girin(cikmak icin 'q', geri gitmek icin 'g')\n";
-	cout << "Ev Sahibi: ";
+std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS, LEAGUE_SEARCH_OPTION> getTwoTeamNamesForCompare() {
+	std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS, LEAGUE_SEARCH_OPTION> team_names;
+
+	//system("cls");
+	std::cout << format("%40s\n") % "Hangi sonuclar istatistiklere dahil edilsin?";
+	cout << format("%s%-40T-%s %-4s\n") % "2.1)Sadece Lig maclari icin" % ":" % "1";
+	cout << format("%s%-40T-%s %-4s\n") % "2.2)Sadece Sampiyonlar Ligi Maclari icin" % ":" % "2";
+	cout << format("%s%-40T-%s %-4s\n") % "2.3)Her ikisini de dahil etmek icin" % ":" % "3";
+	cout << format("%s%-40T-%s %-4s\n") % "2.g)Bir geri gitmek icin" % ":" % "g";
+	cout << format("%s%-40T-%s %-4s\n") % "2.q)Cikis icin" % ":" % "q";
 	std::string name;
-	cin >> name;
+	std::cin >> name;
+	if (!name.compare("1"))
+		std::get<3>(team_names) = LEAGUE_SEARCH_OPTION::ONLY_LEAGUES;
+	else if(!name.compare("2"))
+		std::get<3>(team_names) = LEAGUE_SEARCH_OPTION::ONLY_CL;
+	else if (!name.compare("3"))
+		std::get<3>(team_names) = LEAGUE_SEARCH_OPTION::BOTH;
+	else if (!name.compare("q")) {
+		std::get<2>(team_names) = COMPARE_TWO_OPTIONS::EXIT;
+		return team_names;
+	}
+	else if (!name.compare("g")) {
+		std::get<2>(team_names) = COMPARE_TWO_OPTIONS::GO_BACK;
+		return team_names;
+	}
+	std::cout << "\nKarsilastirmak icin iki takim ismi girin(cikmak icin 'q', geri gitmek icin 'g')\n";
+	std::cout << "Ev Sahibi: ";
+	std::cin >> name;
 	if (!name.compare("q")) {
 		std::get<2>(team_names) = COMPARE_TWO_OPTIONS::EXIT;
 		return team_names;
@@ -86,8 +109,8 @@ std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS> getTwoTeamNamesForComp
 	}
 	std::get<0>(team_names) = name;
 
-	cout << "Deplasman: ";
-	cin >> name;
+	std::cout << "Deplasman: ";
+	std::cin >> name;
 	if (!name.compare("q")) {
 		std::get<2>(team_names) = COMPARE_TWO_OPTIONS::EXIT;
 		return team_names;
@@ -114,8 +137,8 @@ BEST_TEAM_OPTIONS getBestTeamOption() {
 	cout << format("%s%-40T-%s %-4s\n") % "1.2.9)Geri donuslerde enler" % ":" % "9";
 	cout << format("%s%-40T-%s %-4s\n") % "1.2.10)Kornerlerde enler" % ":" % "10";
 
-	cout << format("%s%-40T-%s %-4s\n") % "Bir geri gitmek icin" % ":" % "g";
-	cout << format("%s%-40T-%s %-4s\n") % "Cikis icin" % ":" % "q";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.g)Bir geri gitmek icin" % ":" % "g";
+	cout << format("%s%-40T-%s %-4s\n") % "1.2.q)Cikis icin" % ":" % "q";
 
 	std::string user_in;
 	while (1) {

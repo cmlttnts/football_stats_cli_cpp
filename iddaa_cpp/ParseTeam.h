@@ -7,7 +7,8 @@
 #include "Team.h"
 #include <vector>
 #include "OneLineInfo.h"
-std::pair<Team, bool> searchFilesForTeam(const std::vector<std::filesystem::path>& , const std::string&, bool);
+#include "Interface.h"
+std::pair<Team, bool> searchFilesForTeam(const std::vector<std::filesystem::path>& , const std::string&, LEAGUE_SEARCH_OPTION);
 int searchTeamMatch(const std::filesystem::path&, Team&);
 std::vector<Team> getAllTeamsStats(const std::vector<std::filesystem::path>&);
 

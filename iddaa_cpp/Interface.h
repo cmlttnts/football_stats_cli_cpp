@@ -39,6 +39,11 @@ enum class BEST_TEAM_OPTIONS {
 	EXIT
 };
 
+enum class LEAGUE_SEARCH_OPTION {
+	ONLY_LEAGUES,
+	ONLY_CL,
+	BOTH
+};
 
 enum class COMPARE_TWO_OPTIONS {
 	TEAMS_PICKED,
@@ -67,4 +72,4 @@ LEAGUE_OPTIONS getLeagueOption();
 void printTeamsPerLeague(const std::vector<std::filesystem::path>&);
 std::vector<std::string> _getTeamsFromFile(const std::string&);
 
-std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS> getTwoTeamNamesForCompare();
+std::tuple<std::string, std::string, COMPARE_TWO_OPTIONS, LEAGUE_SEARCH_OPTION> getTwoTeamNamesForCompare();
