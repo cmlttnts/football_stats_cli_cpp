@@ -7,7 +7,6 @@ using boost::format;
 void greeting() {
 	cout << format("%30s %s\n") % "" % "IDDAA ANALIZ PROGRAMI";
 }
-// TODO: Add comparison of two teams, (karsilastirmali goruntu secenegi, iki takim ismi girip yanyana ozllik)
 INIT_OPTIONS getInitOptions() {
 	cout << format("%s%-40T-%s %-4s\n")% "1.Takim secenekleri icin" % ":" % "1";
 	cout << format("%s%-40T-%s %-4s\n") % "2.Iki takim karsilastirmak icin" % ":" % "2";

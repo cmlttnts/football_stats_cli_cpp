@@ -57,6 +57,7 @@ void presentTwoTeamsSideBySide(const Team& team1, const Team& team2) {
 	system("cls");
 	HANDLE h_cons;
 	h_cons = GetStdHandle(STD_OUTPUT_HANDLE);
+	cout << format("%50s|\n") % "";
 	cout << format("%=50s|%=50s\n") % team1.name % team2.name;
 
 	// Match win draw loss number
@@ -65,7 +66,9 @@ void presentTwoTeamsSideBySide(const Team& team1, const Team& team2) {
 	string s1 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team1.num_of_wins%team1.num_of_draws%team1.num_of_losses%team1.num_of_matches);
 	string s2 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team2.num_of_wins % team2.num_of_draws % team2.num_of_losses % team2.num_of_matches);
 	setCommentColor();
-	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
 
 	//HOME VS AWAY PERFORMANCE
 	setTitleColor();
@@ -73,14 +76,18 @@ void presentTwoTeamsSideBySide(const Team& team1, const Team& team2) {
 	s1 = str(format("Evinde (%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team1.num_of_home_wins % team1.num_of_home_draws % team1.num_of_home_losses % team1.num_of_home_matches);
 	s2 = str(format("Deplasmanda (%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team2.num_of_away_wins % team2.num_of_away_draws % team2.num_of_away_losses % team2.num_of_away_matches);
 	setCommentColor();
-	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
 
 	setTitleColor();
 	cout << format("%=100s\n") % "ILK YARI PERFORMANSI (Galip/Berabere/Maglup)";
 	s1 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team1.num_of_first_half_wins % (team1.num_of_matches - team1.num_of_first_half_wins - team1.num_of_first_half_losses) % team1.num_of_first_half_losses % team1.num_of_matches);
 	s2 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team2.num_of_first_half_wins % (team2.num_of_matches - team2.num_of_first_half_wins - team2.num_of_first_half_losses) % team2.num_of_first_half_losses % team2.num_of_matches);
 	setCommentColor();
-	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
 
 	// SECOND HALF COMPARISONS
 	setTitleColor();
@@ -88,9 +95,11 @@ void presentTwoTeamsSideBySide(const Team& team1, const Team& team2) {
 	s1 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team1.num_of_second_half_wins % (team1.num_of_matches - team1.num_of_second_half_wins - team1.num_of_second_half_losses) % team1.num_of_second_half_losses % team1.num_of_matches);
 	s2 = str(format("(%-2u / %-2u / %-2u) Toplam Mac: %-2u") % team2.num_of_second_half_wins % (team2.num_of_matches - team2.num_of_second_half_wins - team2.num_of_second_half_losses) % team2.num_of_second_half_losses % team2.num_of_matches);
 	setCommentColor();
-	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
 
-	// GOALS
+	// GOALS // TODO: ADD FIRST HALF GOALS ETC
 	setTitleColor();
 	cout << format("%=100s\n") % "ATILAN YIYILEN GOL ISTATISTIKLERI";
 	float avrg1 = (team1.num_of_goals+team1.num_of_goals_rec) / float(team1.num_of_matches);
@@ -98,6 +107,7 @@ void presentTwoTeamsSideBySide(const Team& team1, const Team& team2) {
 	s1 = str(format("Maclarinda Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg1 % team1.num_of_matches);
 	s2 = str(format("Maclarinda Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg2 % team2.num_of_matches);
 	setCommentColor();
+	cout << format("%50s|\n") % "";
 	cout << format("%=50s|%=50s\n") % s1 % s2;
 
 	avrg1 = team1.num_of_goals / float(team1.num_of_matches);
@@ -119,7 +129,8 @@ void presentTwoTeamsSideBySide(const Team& team1, const Team& team2) {
 	s1 = str(format("Evde Yedigi Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg1 % team1.num_of_home_matches);
 	s2 = str(format("Depte Yedigi Ortalama / Mac Sayisi : %-3.3f / %-3u") % avrg2 % team2.num_of_away_matches);
 	setCommentColor();
-	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
 
 	// UNDER OVER STATS
 	setTitleColor();
@@ -127,6 +138,7 @@ void presentTwoTeamsSideBySide(const Team& team1, const Team& team2) {
 	s1 = str(format("2.5 ALT / UST: %2u / %2u") % (team1.num_of_matches - team1.num_of_above_2_5_matches) % team1.num_of_above_2_5_matches);
 	s2 = str(format("2.5 ALT / UST: %2u / %2u") % (team2.num_of_matches - team2.num_of_above_2_5_matches) % team2.num_of_above_2_5_matches);
 	setCommentColor();
+	cout << format("%50s|\n") % "";
 	cout << format("%=50s|%=50s\n") % s1 % s2;
 
 	s1 = str(format("3.5 ALT / UST: %2u / %2u") % team1.num_of_below_3_5_matches %(team1.num_of_matches - team1.num_of_below_3_5_matches));
@@ -142,7 +154,27 @@ void presentTwoTeamsSideBySide(const Team& team1, const Team& team2) {
 	s1 = str(format("1Y 0.5 ALT / UST: %2u / %2u") % team1.num_of_below_0_5_half_matches % (team1.num_of_matches - team1.num_of_below_0_5_half_matches));
 	s2 = str(format("1Y 0.5 ALT / UST: %2u / %2u") % team2.num_of_below_0_5_half_matches % (team2.num_of_matches - team2.num_of_below_0_5_half_matches));
 	setCommentColor();
-	cout << format("%=50s|%=50s\n\n") % s1 % s2;
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
+
+	// CORNER STATS
+	setTitleColor();
+	cout << format("%=100s\n") % "KORNER ISTATISTIKLERI";
+	avrg1 = (team1.num_of_corners + team1.num_of_corners_rec) / float(team1.num_of_corner_info_match);
+	avrg2 = (team2.num_of_corners + team2.num_of_corners_rec) / float(team2.num_of_corner_info_match);
+	s1 = str(format("Maclarinda Ortalama / Mac Sayisi: %3.3f / %2u") % avrg1 % team1.num_of_corner_info_match);
+	s2 = str(format("Maclarinda Ortalama / Mac Sayisi: %3.3f / %2u") % avrg2 % team2.num_of_corner_info_match);
+	setCommentColor();
+	cout << format("%50s|\n") % "";
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+
+	avrg1 = team1.num_of_corners / float(team1.num_of_corner_info_match);
+	avrg2 = team2.num_of_corners / float(team2.num_of_corner_info_match);
+	s1 = str(format("Attiklari Ortalama / Mac Sayisi: %3.3f / %2u") % avrg1 % team1.num_of_corner_info_match);
+	s2 = str(format("Attiklari Ortalama / Mac Sayisi: %3.3f / %2u") % avrg2 % team2.num_of_corner_info_match);
+	setCommentColor();
+	cout << format("%=50s|%=50s\n") % s1 % s2;
+	cout << format("%50s|\n") % "";
 
 	// END
 	setInfoColor();
