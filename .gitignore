@@ -7,4 +7,6 @@ iddaa_cpp/*.vcxproj
 iddaa_cpp/*.vcxproj.filters
 iddaa_cpp/*.vcxproj.user
 iddaa_cpp/.vs
+iddaa_cpp/weeks
+iddaa_cpp/Infos
 .vs
