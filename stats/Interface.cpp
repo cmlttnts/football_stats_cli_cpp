@@ -5,7 +5,7 @@
 using namespace std;
 using boost::format;
 void greeting() {
-	cout << format("%30s %s\n") % "" % "IDDAA ANALIZ PROGRAMI";
+	cout << format("%30s %s\n") % "" % "ANALIZ PROGRAMI";
 }
 INIT_OPTIONS getInitOptions() {
 	cout << format("%s%-40T-%s %-4s\n")% "1.Takim secenekleri icin" % ":" % "1";

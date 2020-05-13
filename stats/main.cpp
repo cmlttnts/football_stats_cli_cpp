@@ -1,5 +1,4 @@
-// iddaa_cpp.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+
 #include <utility>
 #include <Windows.h>
 #include <iostream>
@@ -22,12 +21,12 @@ int main() {
 	//temporary variables block
 	{
 		std::string cur_path = std::filesystem::current_path().string();
-		std::string iddaa_cpp_part = "\\iddaa_cpp";
-		weeks_path = cur_path.substr(0, cur_path.find(iddaa_cpp_part));
-		teams_path = cur_path.substr(0, cur_path.find(iddaa_cpp_part));
+		std::string stats_part = "\\stats";
+		weeks_path = cur_path.substr(0, cur_path.find(stats_part));
+		teams_path = cur_path.substr(0, cur_path.find(stats_part));
 	}
-	weeks_path += "\\iddaa_cpp\\weeks";
-	teams_path += "\\iddaa_cpp\\teams";
+	weeks_path += "\\stats\\weeks";
+	teams_path += "\\stats\\teams";
 	std::vector<std::filesystem::path> match_file_names = getFileNames(weeks_path);
 	std::vector<std::filesystem::path> team_file_names = getFileNames(teams_path);
 	greeting();
@@ -130,92 +129,3 @@ int main() {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//		INIT_OPTIONS first_option = getInitOptions();
-//		go_back_to_init = false;
-//		while (!exited && !go_back_to_init) {
-//			switch (first_option){
-//				case INIT_OPTIONS::TEAM_OPTION:
-//					TEAM_OPTIONS second_option = getTeamOption();
-//					go_back_to_team = false;
-//					while (!exited && !go_back_to_team) {
-//						switch (second_option){
-//							case TEAM_OPTIONS::TEAM_ANALYSIS:{
-//								std::string team_name = getTeamNameFromUser();
-//								int choice = presentTeam(team_name, match_file_names);
-//								exited = choice == 1;
-//								go_back_to_team = choice == 2;
-//							}
-//								break;
-//							case TEAM_OPTIONS::BEST_TEAM:
-//								while (!exited && !go_back_to_team) {
-//									BEST_TEAM_OPTIONS third_option = getBestTeamOption();
-//									switch (third_option){
-//										case BEST_TEAM_OPTIONS::BEST_RESULTS:
-//											break;
-//										case BEST_TEAM_OPTIONS::WORST_RESULTS:
-//											break;
-//										case BEST_TEAM_OPTIONS::MOST_GOALS_SCORED:
-//											break;
-//										case BEST_TEAM_OPTIONS::LEAST_GOALS_SCORED:
-//											break;
-//										case BEST_TEAM_OPTIONS::MOST_GOALS_RECEIVED:
-//											break;
-//										case BEST_TEAM_OPTIONS::LEAST_GOALS_RECEIVED:
-//											break;
-//										case BEST_TEAM_OPTIONS::COMEBACKS:
-//											break;
-//										case BEST_TEAM_OPTIONS::CORNERS:
-//											break;
-//										case BEST_TEAM_OPTIONS::GO_BACK:
-//											go_back_to_team = true;
-//											break;
-//										case BEST_TEAM_OPTIONS::EXIT:
-//											exited = true;
-//											break;
-//										default:
-//											break;
-//									}
-//								}
-//								break;
-//							case TEAM_OPTIONS::GO_BACK:
-//								go_back_to_init = true;
-//								break;
-//							case TEAM_OPTIONS::EXIT:
-//								exited = true;
-//								break;
-//							default:
-//								break;
-//						}
-//					}
-//				break;
-//			case INIT_OPTIONS::LEAGUE_OPTION:
-//				std::cout << "Cok Yakinda Geliyor...\n";
-//				go_back_to_init = true;
-//				break;
-//			case INIT_OPTIONS::TEAM_NAMES_OPTION:
-//				printTeamsPerLeague(team_file_names);
-//				break;
-//			case INIT_OPTIONS::EXIT:
-//				exited = true;
-//			default:
-//				break;
-//			}
-//		}
-//	}
-//}

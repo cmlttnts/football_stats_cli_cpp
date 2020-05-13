@@ -1,5 +1,5 @@
-#ifndef _IDDAA_TEAM_H_
-#define _IDDAA_TEAM_H_
+#ifndef _STATS_TEAM_H_
+#define _STATS_TEAM_H_
 #include <string>
 #include <vector>
 #include "Match.h"
